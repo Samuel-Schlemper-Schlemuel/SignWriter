@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=singwriter
+Exec=singwriter
+Icon=com.github.SamuelSchlemperSchlemuel.SingWriter
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true

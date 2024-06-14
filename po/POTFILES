@@ -1,0 +1,6 @@
+data/com.github.SamuelSchlemperSchlemuel.SingWriter.desktop.in
+data/com.github.SamuelSchlemperSchlemuel.SingWriter.metainfo.xml.in
+data/com.github.SamuelSchlemperSchlemuel.SingWriter.gschema.xml
+src/main.py
+src/window.py
+src/window.ui
