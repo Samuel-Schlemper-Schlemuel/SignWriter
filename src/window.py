@@ -24,6 +24,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'SingwriterWindow'
 
     grid = Gtk.Template.Child()
+    symbol_screen_button = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -37,6 +38,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
         style_provider.load_from_path(f'resource://{resource_path_style}')
 
         kwargs['application'].create_action('change-size', self.change_grid_size)
+        self.symbol_screen_button.connect('clicked', self.push_screen)
 
     def add_grid_size(self, row_quantity, column_quantity):
         for num in range(row_quantity):
@@ -63,15 +65,13 @@ class SingwriterWindow(Adw.ApplicationWindow):
             for num in range(self.grid_column_quantity):
                 self.grid.remove_column(0)
 
+    def push_screen(self, widget):
+        print('chegou')
+
 class GridSizeDialog(Gtk.Dialog):
 
     def __init__(self, parent):
-        super().__init__(title="Caixa de Entrada Numérica", transient_for=parent, modal=True)
-        self.set_default_size(200, 100)
-        self.set_margin_top(10)
-        self.set_margin_bottom(10)
-        self.set_margin_start(10)
-        self.set_margin_end(10)
+        super().__init__(title="Mudar tamanho da grade", transient_for=parent, modal=True)
         self.parent = parent
 
         adjustment_row = Gtk.Adjustment(value=1, lower=1, upper=100, step_increment=1, page_increment=10, page_size=0)
@@ -84,8 +84,8 @@ class GridSizeDialog(Gtk.Dialog):
         self.spin_button_column.set_adjustment(adjustment_column)
         self.spin_button_column.set_numeric(True)
 
-        button = Gtk.Button(label="Mudar tamanho da grade")
-        button.connect("clicked", self.actualize_grid_size)
+        button = Gtk.Button(label='Mudar tamanho da grade')
+        button.connect('clicked', self.actualize_grid_size)
 
         label_row = Gtk.Label(label='Quantidade de linhas')
         label_column = Gtk.Label(label='Quantidade de colunas')

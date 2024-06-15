@@ -39,6 +39,11 @@
             </child>
           </object>
         </child>
+        <child type="bottom">
+          <object class="GtkButton" id="symbol_screen_button">
+            <property name="icon-name">pan-up-symbolic</property>
+          </object>
+        </child>
       </object>
     </property>
   </template>
