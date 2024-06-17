@@ -25,17 +25,32 @@ class SingwriterWindow(Adw.ApplicationWindow):
 
     grid = Gtk.Template.Child()
     symbol_screen_button = Gtk.Template.Child()
-
+    symbol_screen = Gtk.Template.Child()
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.grid_row_quantity = 8
+        self.grid_row_quantity = 6
         self.grid_column_quantity = 10
         self.add_grid_size(row_quantity = self.grid_row_quantity, column_quantity = self.grid_column_quantity)
 
         style_provider = Gtk.CssProvider()
         resource_path_style = '/com/github/SamuelSchlemperSchlemuel/SingWriter/style.css'
         style_provider.load_from_path(f'resource://{resource_path_style}')
+
+        scrollable_content = Gtk.Label(label="CLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc. \n" * 5)
+
+        scrolled_window = Gtk.ScrolledWindow()
+        scrolled_window.set_child(scrollable_content)
+        scrolled_window.set_vexpand(True)
+        scrolled_window.set_hexpand(True)
+
+        self.revealer = Gtk.Revealer()
+        self.revealer.set_child(scrolled_window)
+        self.revealer.set_reveal_child(False)
+        self.revealer.set_vexpand(True)
+        self.revealer.set_hexpand(True)
+
+        self.symbol_screen.append(self.revealer)
 
         kwargs['application'].create_action('change-size', self.change_grid_size)
         self.symbol_screen_button.connect('clicked', self.push_screen)
@@ -66,7 +81,16 @@ class SingwriterWindow(Adw.ApplicationWindow):
                 self.grid.remove_column(0)
 
     def push_screen(self, widget):
-        print('chegou')
+        current_reveal_state = self.revealer.get_reveal_child()
+
+        if not current_reveal_state:
+            self.revealer.get_style_context().add_class('revealer')
+            self.symbol_screen_button.set_icon_name('pan-down-symbolic')
+        else:
+            self.revealer.get_style_context().remove_class('revealer')
+            self.symbol_screen_button.set_icon_name('pan-up-symbolic')
+
+        self.revealer.set_reveal_child(not current_reveal_state)
 
 class GridSizeDialog(Gtk.Dialog):
 
