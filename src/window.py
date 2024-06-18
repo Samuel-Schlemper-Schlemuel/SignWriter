@@ -26,21 +26,25 @@ class SingwriterWindow(Adw.ApplicationWindow):
     grid = Gtk.Template.Child()
     symbol_screen_button = Gtk.Template.Child()
     symbol_screen = Gtk.Template.Child()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
         self.grid_row_quantity = 6
         self.grid_column_quantity = 10
-        self.add_grid_size(row_quantity = self.grid_row_quantity, column_quantity = self.grid_column_quantity)
+        self.add_grid_size(grid = self.grid,
+                           row_quantity = self.grid_row_quantity,
+                           column_quantity = self.grid_column_quantity,
+                           boxes = True)
 
         style_provider = Gtk.CssProvider()
         resource_path_style = '/com/github/SamuelSchlemperSchlemuel/SingWriter/style.css'
         style_provider.load_from_path(f'resource://{resource_path_style}')
 
-        scrollable_content = Gtk.Label(label="CLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc. \n" * 5)
+        self.symbol_screen_content()
 
         scrolled_window = Gtk.ScrolledWindow()
-        scrolled_window.set_child(scrollable_content)
+        scrolled_window.set_child(self.symbol_screen_grid)
         scrolled_window.set_vexpand(True)
         scrolled_window.set_hexpand(True)
 
@@ -55,18 +59,22 @@ class SingwriterWindow(Adw.ApplicationWindow):
         kwargs['application'].create_action('change-size', self.change_grid_size)
         self.symbol_screen_button.connect('clicked', self.push_screen)
 
-    def add_grid_size(self, row_quantity, column_quantity):
+    def add_grid_size(self, grid, row_quantity, column_quantity, boxes):
         for num in range(row_quantity):
-            self.grid.insert_row(num)
+            grid.insert_row(num)
 
         for num in range(column_quantity):
-            self.grid.insert_column(num)
+            grid.insert_column(num)
+
 
         for row in range(row_quantity):
             for column in range(column_quantity):
                 box = Gtk.Box()
-                box.get_style_context().add_class('box')
-                self.grid.attach(box, column, row, 1, 1)
+
+                if boxes:
+                    box.get_style_context().add_class('box')
+
+                grid.attach(box, column, row, 1, 1)
 
     def change_grid_size(self, widget, _):
         dialog = GridSizeDialog(self)
@@ -91,6 +99,103 @@ class SingwriterWindow(Adw.ApplicationWindow):
             self.symbol_screen_button.set_icon_name('pan-up-symbolic')
 
         self.revealer.set_reveal_child(not current_reveal_state)
+
+    def symbol_screen_content(self):
+        self.hand_format = Gtk.Button(label="Formato da mão")
+        self.movement = Gtk.Button(label="Movimento")
+        self.facial_expression = Gtk.Button(label="Expressão facial")
+        self.transformation = Gtk.Button(label="Transformação")
+
+        self.hand_format.connect('clicked', self.hand_format_screen)
+        self.movement.connect('clicked', self.movement_screen)
+        self.facial_expression.connect('clicked', self.facial_expression_screen)
+        self.transformation.connect('clicked', self.transformation_screen)
+
+        self.hand_format.get_style_context().add_class('button_content_revealer')
+        self.movement.get_style_context().add_class('button_content_revealer')
+        self.facial_expression.get_style_context().add_class('button_content_revealer')
+        self.transformation.get_style_context().add_class('button_content_revealer')
+
+        self.symbol_screen_grid = Gtk.Grid()
+        self.symbol_screen_grid.set_column_homogeneous(True)
+        self.symbol_screen_grid.set_row_homogeneous(True)
+        self.symbol_screen_grid.set_column_spacing(5)
+        self.symbol_screen_grid.set_row_spacing(10)
+
+        self.symbol_screen_grid_row_quantity = 16
+        self.symbol_screen_grid_column_quantity = 8
+
+        self.add_grid_size(grid = self.symbol_screen_grid,
+                           row_quantity = self.symbol_screen_grid_row_quantity,
+                           column_quantity = self.symbol_screen_grid_column_quantity,
+                           boxes = False)
+
+        self.hand_format.emit('clicked')
+
+    def clean_symbol_screen_grid(self):
+        for row in range(self.symbol_screen_grid_row_quantity):
+            for column in range(self.symbol_screen_grid_column_quantity):
+                child = self.symbol_screen_grid.get_child_at(column, row)
+                self.symbol_screen_grid.remove(child)
+
+                if self.hand_format.get_parent():
+                    self.hand_format.get_parent().remove(self.hand_format)
+
+                if self.movement.get_parent():
+                    self.movement.get_parent().remove(self.movement)
+
+                if self.facial_expression.get_parent():
+                    self.facial_expression.get_parent().remove(self.facial_expression)
+
+                if self.transformation.get_parent():
+                    self.transformation.get_parent().remove(self.transformation)
+
+        self.add_grid_size(grid = self.symbol_screen_grid,
+                           row_quantity = self.symbol_screen_grid_row_quantity,
+                           column_quantity = self.symbol_screen_grid_column_quantity,
+                           boxes = False)
+
+        self.symbol_screen_grid.attach(self.hand_format,       column = 0, row = 0, width = 2, height = 1)
+        self.symbol_screen_grid.attach(self.movement,          column = 2, row = 0, width = 2, height = 1)
+        self.symbol_screen_grid.attach(self.facial_expression, column = 4, row = 0, width = 2, height = 1)
+        self.symbol_screen_grid.attach(self.transformation,    column = 6, row = 0, width = 2, height = 1)
+
+    def add_characters(self, characters):
+        row = 1
+        col = 0
+
+        for char in characters:
+            label = Gtk.Label(label=char)
+            label.get_style_context().add_class('character_label')
+
+            box = Gtk.Box()
+            box.append(label)
+
+            child = self.symbol_screen_grid.get_child_at(col, row)
+            self.symbol_screen_grid.remove(child)
+            self.symbol_screen_grid.attach(box, col, row, 1, 1)
+            col += 1
+
+            if col >= self.symbol_screen_grid_column_quantity:
+                col = 0
+                row += 1
+
+    def hand_format_screen(self, widget):
+        self.clean_symbol_screen_grid()
+
+        characters = ['𝠀', '𝠁', '𝠂']
+
+        self.add_characters(characters)
+
+
+    def movement_screen(self, widget):
+        self.clean_symbol_screen_grid()
+
+    def facial_expression_screen(self, widget):
+        self.clean_symbol_screen_grid()
+
+    def transformation_screen(self, widget):
+        self.clean_symbol_screen_grid()
 
 class GridSizeDialog(Gtk.Dialog):
 
