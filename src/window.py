@@ -103,17 +103,17 @@ class SingwriterWindow(Adw.ApplicationWindow):
     def symbol_screen_content(self):
         self.hand_format = Gtk.Button(label="Formato da mão")
         self.movement = Gtk.Button(label="Movimento")
-        self.facial_expression = Gtk.Button(label="Expressão facial")
+        self.sing_local = Gtk.Button(label="Local do sinal")
         self.transformation = Gtk.Button(label="Transformação")
 
         self.hand_format.connect('clicked', self.hand_format_screen)
         self.movement.connect('clicked', self.movement_screen)
-        self.facial_expression.connect('clicked', self.facial_expression_screen)
+        self.sing_local.connect('clicked', self.sing_local_screen)
         self.transformation.connect('clicked', self.transformation_screen)
 
         self.hand_format.get_style_context().add_class('button_content_revealer')
         self.movement.get_style_context().add_class('button_content_revealer')
-        self.facial_expression.get_style_context().add_class('button_content_revealer')
+        self.sing_local.get_style_context().add_class('button_content_revealer')
         self.transformation.get_style_context().add_class('button_content_revealer')
 
         self.symbol_screen_grid = Gtk.Grid()
@@ -122,8 +122,8 @@ class SingwriterWindow(Adw.ApplicationWindow):
         self.symbol_screen_grid.set_column_spacing(5)
         self.symbol_screen_grid.set_row_spacing(10)
 
-        self.symbol_screen_grid_row_quantity = 16
-        self.symbol_screen_grid_column_quantity = 8
+        self.symbol_screen_grid_row_quantity = 23
+        self.symbol_screen_grid_column_quantity = 12
 
         self.add_grid_size(grid = self.symbol_screen_grid,
                            row_quantity = self.symbol_screen_grid_row_quantity,
@@ -144,8 +144,8 @@ class SingwriterWindow(Adw.ApplicationWindow):
                 if self.movement.get_parent():
                     self.movement.get_parent().remove(self.movement)
 
-                if self.facial_expression.get_parent():
-                    self.facial_expression.get_parent().remove(self.facial_expression)
+                if self.sing_local.get_parent():
+                    self.sing_local.get_parent().remove(self.sing_local)
 
                 if self.transformation.get_parent():
                     self.transformation.get_parent().remove(self.transformation)
@@ -155,10 +155,10 @@ class SingwriterWindow(Adw.ApplicationWindow):
                            column_quantity = self.symbol_screen_grid_column_quantity,
                            boxes = False)
 
-        self.symbol_screen_grid.attach(self.hand_format,       column = 0, row = 0, width = 2, height = 1)
-        self.symbol_screen_grid.attach(self.movement,          column = 2, row = 0, width = 2, height = 1)
-        self.symbol_screen_grid.attach(self.facial_expression, column = 4, row = 0, width = 2, height = 1)
-        self.symbol_screen_grid.attach(self.transformation,    column = 6, row = 0, width = 2, height = 1)
+        self.symbol_screen_grid.attach(self.hand_format,       column = 0, row = 0, width = 3, height = 1)
+        self.symbol_screen_grid.attach(self.movement,          column = 3, row = 0, width = 3, height = 1)
+        self.symbol_screen_grid.attach(self.sing_local, column = 6, row = 0, width = 3, height = 1)
+        self.symbol_screen_grid.attach(self.transformation,    column = 9, row = 0, width = 3, height = 1)
 
     def add_characters(self, characters):
         row = 1
@@ -180,22 +180,55 @@ class SingwriterWindow(Adw.ApplicationWindow):
                 col = 0
                 row += 1
 
+    def characters_separator(self, characters):
+        result = list()
+
+        for char in characters:
+            result.append(char)
+
+        return result
+
+
     def hand_format_screen(self, widget):
         self.clean_symbol_screen_grid()
 
-        characters = ['𝠀', '𝠁', '𝠂']
+        characters_string = '𝠀𝠁𝠂𝠃𝠄𝠅𝠆𝠇𝠈𝠉𝠊𝠋𝠌𝠍𝠎𝠏𝠐𝠑𝠒𝠓𝠔𝠕𝠖𝠘𝠗𝠙𝠚𝠛𝠜𝠝𝠞𝠟𝠠𝠡𝠢𝠣𝠤𝠥𝠦𝠧𝠨𝠩𝠪𝠫𝠬\
+𝠭𝠮𝠯𝠰𝠱𝠲𝠳𝠴𝠵𝠶𝠷𝠸𝠹𝠺𝠻𝠼𝠽𝠾𝠿𝡀𝡁𝡂𝡃𝡄𝡅𝡆𝡇𝡈𝡉𝡊𝡋𝡌𝡍𝡏𝡎𝡐𝡑𝡒𝡓𝡔𝡕𝡖𝡗𝡘𝡙\
+𝡚𝡛𝡜𝡝𝡞𝡟𝡠𝡡𝡢𝡣𝡤𝡥𝡦𝡧𝡨𝡩𝡪𝡫𝡬𝡭𝡮𝡯𝡰𝡱𝡲𝡳𝡴𝡵𝡶𝡷𝡸𝡹𝡺𝡻𝡼𝡽𝡾𝡿𝢀𝢁𝢂𝢃𝢄𝢅𝢆\
+𝢇𝢈𝢉𝢊𝢋𝢌𝢍𝢎𝢏𝢐𝢑𝢒𝢓𝢔𝢕𝢖𝢗𝢘𝢙𝢚𝢛𝢜𝢝𝢞𝢟𝢠𝢡𝢢𝢣𝢤𝢥𝢦𝢧𝢨𝢩𝢪𝢫𝢬𝢭𝢮𝢰𝢱𝢯𝢲𝢳\
+𝢴𝢵𝢶𝢷𝢸𝢹𝢺𝢻𝢼𝢽𝢾𝢿𝣀𝣁𝣂𝣃𝣄𝣅𝣆𝣇𝣈𝣉𝣊𝣋𝣌𝣍𝣎𝣏𝣐𝣑𝣒𝣓𝣔𝣕𝣖𝣗𝣘𝣙𝣚𝣛𝣜𝣝𝣞𝣟𝣠\
+𝣡𝣢𝣣𝣤𝣥𝣦𝣧𝣨𝣩𝣪𝣫𝣬𝣭𝣮𝣯𝣰𝣱𝣲𝣳𝣴𝣵𝣶𝣷𝣸𝣹𝣺𝣻𝣼𝣽𝣾𝣿𝤀𝤁𝤂𝤃𝤄'
 
-        self.add_characters(characters)
-
+        characters_list = self.characters_separator(characters_string)
+        self.add_characters(characters_list)
 
     def movement_screen(self, widget):
         self.clean_symbol_screen_grid()
 
-    def facial_expression_screen(self, widget):
+        characters_string = '𝤅𝤆𝤇𝤈𝤉𝤊𝤋𝤌𝤍𝤎𝤏𝤐𝤑𝤒𝤓𝤔𝤔𝤕𝤖𝤗𝤘𝤙𝤚𝤛𝤜𝤝𝤞𝤟𝤠𝤡𝤢𝤣𝤤𝤥𝤦𝤧𝤨𝤩𝤪𝤫𝤬𝤭𝤮𝤯𝤰𝤱\
+𝤳𝤲𝤴𝤵𝤶𝤷𝤸𝤹𝤺𝤻𝤼𝤽𝤾𝤿𝥀𝥁𝥂𝥃𝥄𝥅𝥆𝥇𝥈𝥉𝥊𝥋𝥌𝥍𝥎𝥏𝥐𝥑𝥒𝥓𝥔𝥕𝥗𝥖𝥘𝥙𝥚𝥛𝥜𝥝𝥞𝥟𝥠𝥡𝥢𝥤𝥣𝥥𝥦𝥧𝥨𝥩𝥪𝥫𝥬𝥭𝥮\
+𝥯𝥰𝥱𝥲𝥳𝥴𝥵𝥶𝥷𝥸𝥹𝥻𝥺𝥼𝥾𝥽𝥿𝦀𝦁𝦂𝦃𝦄𝦅𝦆𝦇𝦈𝦉𝦊𝦋𝦌𝦍𝦎𝦏𝦐𝦑𝦒𝦓𝦔𝦕𝦖𝦗𝦘𝦚𝦙𝦛𝦜𝦝𝦞𝦟𝦠𝦡𝦢𝦣𝦤𝦥𝦦𝦧𝦨𝦩𝦪𝦫\
+𝦬𝦭𝦮𝦯𝧁𝧂𝧃𝧄𝧅𝧆𝧈𝧉𝧊𝧋𝧌𝧍𝧎𝧏𝧐𝧒𝧓𝧔𝧕𝧖𝧗𝧘𝧙𝧚𝧛𝧜𝧝𝧞𝧟𝧠𝧡𝧢𝧣𝧤𝧥𝧦𝧧𝧨𝧩𝧪𝧫𝧬𝧭𝧮𝧯𝧰𝧱𝧲𝧳𝧴𝧵𝧶𝧷𝧸𝧹𝧺𝧻\
+𝧼𝧽𝧾'
+
+        characters_list = self.characters_separator(characters_string)
+        self.add_characters(characters_list)
+
+    def sing_local_screen(self, widget):
         self.clean_symbol_screen_grid()
+
+        characters_string = '𝧿𝨷𝨸𝨹𝨺𝩭𝩮𝩯𝩰𝩱𝩲𝩳𝩴𝩶𝩷𝩸𝩹𝩺𝩻𝩼𝩽𝩾𝩿𝪀𝪁𝪂𝪃𝪅𝪆𝪇𝪈𝪉𝪊𝪋'
+
+        characters_list = self.characters_separator(characters_string)
+        self.add_characters(characters_list)
 
     def transformation_screen(self, widget):
         self.clean_symbol_screen_grid()
+
+        characters_string = ''' 𝨀𝨁𝨂𝨃𝨄𝨅𝨆𝨇𝨈𝨉𝨊𝨋𝨌𝨍𝨏𝨎𝨑𝨒𝨓𝨔𝨕𝨖𝨗𝨘𝨙𝨚𝨜𝨛𝨞𝨝𝨟𝨠𝨡𝨢𝨣𝨥𝨤𝨦𝨧𝨨𝨩𝨪𝨫𝨬𝨭𝨮𝨯𝨰𝨱𝨲𝨳𝨴𝨵𝨶𝨼𝨻𝨽𝨾𝨿𝩀𝩂𝩁𝩃𝩄𝩅𝩆𝩇𝩈𝩉𝩊𝩋𝩌𝩍𝩎𝩏𝩐𝩑𝩒𝩓𝩔𝩖𝩕𝩗𝩘𝩙𝩚𝩛𝩜𝩝𝩞𝩟𝩠𝩡𝩢𝩣𝩤𝩥𝩦𝩧𝩨𝩩𝩪𝩫𝩬𝩵𝪄' 𝪛𝪜𝪝𝪞𝪟𝪡𝪢𝪣𝪤𝪥𝪦𝪧𝪨𝪩𝪪𝪫𝪬𝪭𝪮𝪯'''
+
+        characters_list = self.characters_separator(characters_string)
+        self.add_characters(characters_list)
 
 class GridSizeDialog(Gtk.Dialog):
 
