@@ -27,6 +27,9 @@ class SingwriterWindow(Adw.ApplicationWindow):
     symbol_screen_button = Gtk.Template.Child()
     symbol_screen = Gtk.Template.Child()
 
+    boxes = dict()
+    current_box = None
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -71,8 +74,14 @@ class SingwriterWindow(Adw.ApplicationWindow):
             for column in range(column_quantity):
                 box = Gtk.Box()
 
+                gesture = Gtk.GestureClick()
+                gesture.connect("pressed", self.select_box)
+                gesture.id = f'{column}_{row}'
+                box.add_controller(gesture)
+
                 if boxes:
                     box.get_style_context().add_class('box')
+                    self.boxes[f'{column}_{row}'] = box
 
                 grid.attach(box, column, row, 1, 1)
 
@@ -81,6 +90,8 @@ class SingwriterWindow(Adw.ApplicationWindow):
         dialog.show()
 
     def remove_grid_children(self):
+        self.current_box = None
+
         if self.grid_row_quantity < self.grid_column_quantity:
             for num in range(self.grid_row_quantity):
                 self.grid.remove_row(0)
@@ -225,10 +236,22 @@ class SingwriterWindow(Adw.ApplicationWindow):
     def transformation_screen(self, widget):
         self.clean_symbol_screen_grid()
 
-        characters_string = ''' 𝨀𝨁𝨂𝨃𝨄𝨅𝨆𝨇𝨈𝨉𝨊𝨋𝨌𝨍𝨏𝨎𝨑𝨒𝨓𝨔𝨕𝨖𝨗𝨘𝨙𝨚𝨜𝨛𝨞𝨝𝨟𝨠𝨡𝨢𝨣𝨥𝨤𝨦𝨧𝨨𝨩𝨪𝨫𝨬𝨭𝨮𝨯𝨰𝨱𝨲𝨳𝨴𝨵𝨶𝨼𝨻𝨽𝨾𝨿𝩀𝩂𝩁𝩃𝩄𝩅𝩆𝩇𝩈𝩉𝩊𝩋𝩌𝩍𝩎𝩏𝩐𝩑𝩒𝩓𝩔𝩖𝩕𝩗𝩘𝩙𝩚𝩛𝩜𝩝𝩞𝩟𝩠𝩡𝩢𝩣𝩤𝩥𝩦𝩧𝩨𝩩𝩪𝩫𝩬𝩵𝪄' 𝪛𝪜𝪝𝪞𝪟𝪡𝪢𝪣𝪤𝪥𝪦𝪧𝪨𝪩𝪪𝪫𝪬𝪭𝪮𝪯'''
+        characters_string = ''' 𝨀𝨁𝨂𝨃𝨄𝨅𝨆𝨇𝨈𝨉𝨊𝨋𝨌𝨍𝨏𝨎𝨑𝨒𝨓𝨔𝨕𝨖𝨗𝨘𝨙𝨚𝨜𝨛𝨞𝨝𝨟𝨠𝨡𝨢𝨣𝨥𝨤𝨦𝨧𝨨𝨩𝨪𝨫𝨬𝨭𝨮𝨯𝨰𝨱𝨲𝨳𝨴𝨵𝨶𝨼𝨻𝨽𝨾𝨿𝩀𝩂𝩁𝩃𝩄𝩅𝩆𝩇𝩈𝩉𝩊𝩋𝩌𝩍𝩎𝩏𝩐𝩑𝩒𝩓𝩔𝩖𝩕𝩗𝩘𝩙𝩚𝩛𝩜𝩝𝩞𝩟𝩠𝩡𝩢𝩣𝩤𝩥𝩦𝩧𝩨𝩩𝩪𝩫𝩬𝩵𝪄' 𝪛𝪜𝪝𝪞𝪟𝪡𝪢𝪣𝪤𝪥𝪦𝪧𝪨𝪩𝪪𝪫𝪬𝪭𝪮𝪯  '''
 
         characters_list = self.characters_separator(characters_string)
         self.add_characters(characters_list)
+
+    def select_box(self, gesture, clicks, horizontal, vertical):
+        marked = dict()
+        print(self.boxes[gesture.id])
+
+        if self.current_box == None:
+            self.boxes[gesture.id].get_style_context().add_class('yellow')
+            self.current_box = gesture.id
+        else:
+            self.boxes[self.current_box].get_style_context().remove_class('yellow')
+            self.boxes[gesture.id].get_style_context().add_class('yellow')
+            self.current_box = gesture.id
 
 class GridSizeDialog(Gtk.Dialog):
 
@@ -266,6 +289,9 @@ class GridSizeDialog(Gtk.Dialog):
         self.parent.remove_grid_children()
         self.parent.grid_row_quantity = self.spin_button_row.get_value_as_int()
         self.parent.grid_column_quantity = self.spin_button_column.get_value_as_int()
-        self.parent.add_grid_size(row_quantity = self.parent.grid_row_quantity, column_quantity = self.parent.grid_column_quantity)
+        self.parent.add_grid_size(grid = self.parent.grid,
+                                  row_quantity = self.parent.grid_row_quantity,
+                                  column_quantity = self.parent.grid_column_quantity,
+                                  boxes = True)
         self.response(Gtk.ResponseType.OK)
         
