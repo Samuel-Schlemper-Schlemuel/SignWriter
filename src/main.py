@@ -55,7 +55,7 @@ class SingwriterApplication(Adw.Application):
                                 application_icon='com.github.SamuelSchlemperSchlemuel.SingWriter',
                                 developer_name='Samuel Schlemper',
                                 version='0.1.0',
-                                developers=['Samuel Schlemper (𝣭𝪜𝥑)'],
+                                developers=['Samuel Schlemper (𝣡𝪛𝧢)'],
                                 copyright='© 2024 Samuel Schlemper')
         about.present()
 
