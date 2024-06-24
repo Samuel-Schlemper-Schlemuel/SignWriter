@@ -81,6 +81,10 @@ class SingwriterWindow(Adw.ApplicationWindow):
                 box.add_controller(gesture)
 
                 if boxes:
+                    label = Gtk.Label()
+                    label.get_style_context().add_class('character_label')
+                    box.append(label)
+
                     box.get_style_context().add_class('box')
                     self.boxes[f'{column}_{row}'] = box
 
@@ -112,6 +116,9 @@ class SingwriterWindow(Adw.ApplicationWindow):
         if self.current_box == None:
             self.boxes[gesture.id].get_style_context().add_class('yellow')
             self.current_box = gesture.id
+        elif self.current_box == gesture.id:
+            self.boxes[self.current_box].get_style_context().remove_class('yellow')
+            self.current_box = None
         else:
             self.boxes[self.current_box].get_style_context().remove_class('yellow')
             self.boxes[gesture.id].get_style_context().add_class('yellow')
@@ -271,7 +278,7 @@ class SymbolScreen():
         '𝨴', '𝨵', '𝨶', '𝨼', '𝨻', '𝨽', '𝨾', '𝨿', '𝩀', '𝩂', '𝩁', '𝩃', '𝩄', '𝩅', '𝩆', '𝩇',
         '𝩈', '𝩉', '𝩊', '𝩋', '𝩌', '𝩍', '𝩎', '𝩏', '𝩐', '𝩑', '𝩒', '𝩓', '𝩔', '𝩖', '𝩕', '𝩗',
         '𝩘', '𝩙', '𝩚', '𝩛', '𝩜', '𝩝', '𝩞', '𝩟', '𝩠', '𝩡', '𝩢', '𝩣', '𝩤', '𝩥', '𝩦', '𝩧',
-        '𝩨', '𝩩', '𝩪', '𝩫', '𝩬', '𝩵', '𝪄', "'", '𝪛', '𝪜', '𝪝', '𝪞', '𝪟', '𝪡', '𝪢', '𝪣',
+        '𝩨', '𝩩', '𝩪', '𝩫', '𝩬', '𝩵', '𝪄', '𝪛', '𝪜', '𝪝', '𝪞', '𝪟', '𝪡', '𝪢', '𝪣',
         '𝪤', '𝪥', '𝪦', '𝪧', '𝪨', '𝪩', '𝪪', '𝪫', '𝪬', '𝪭', '𝪮', '𝪯']
 
         self.add_characters(characters_list)
@@ -315,6 +322,11 @@ class SymbolScreen():
             box = Gtk.Box()
             box.append(label)
 
+            gesture = Gtk.GestureClick()
+            gesture.connect("pressed", self.select_character)
+            gesture.id = f'{char}'
+            box.add_controller(gesture)
+
             child = self.symbol_screen_grid.get_child_at(col, row)
             self.symbol_screen_grid.remove(child)
             self.symbol_screen_grid.attach(box, col, row, 1, 1)
@@ -323,4 +335,11 @@ class SymbolScreen():
             if col >= self.symbol_screen_grid_column_quantity:
                 col = 0
                 row += 1
+
+    def select_character(self, gesture, clicks, horizontal, vertical):
+        if self.parent.current_box != None:
+            box = self.parent.boxes[self.parent.current_box]
+            label = box.get_last_child()
+            current_text = label.get_label()
+            label.set_text(current_text + f"{gesture.id}")
 
