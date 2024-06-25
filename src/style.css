@@ -3,9 +3,19 @@
     padding: 50px 60px;
 }
 
+.bottom_button{
+  padding: 5px 10px;
+  margin: 10px 5px;
+  font-size: 20px;
+}
+
 .revealer{
     transition: all 0.5s ease;
     min-height: 350px;
+}
+
+.noRevealer{
+    transition: all 0.5s ease;
 }
 
 .button_content_revealer{

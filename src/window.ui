@@ -43,10 +43,49 @@
           <object class="GtkBox">
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkButton" id="symbol_screen_button">
-                  <property name="icon-name">pan-up-symbolic</property>
-                  <property name="halign">center</property>
-                  <property name="valign">center</property>
+              <object class="GtkBox" id="button_box">
+                <property name="orientation">horizontal</property>
+                <child>
+                  <object class="GtkButton" id="break_line_button">
+                    <property name="label">↲</property>
+                    <property name="halign">start</property>
+                    <property name="valign">center</property>
+                    <style>
+                      <class name="bottom_button" />
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="space_button">
+                    <property name="label">﹈</property>
+                    <property name="halign">start</property>
+                    <property name="valign">center</property>
+                    <style>
+                      <class name="bottom_button" />
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="symbol_screen_button">
+                    <property name="icon-name">pan-up-symbolic</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <style>
+                      <class name="bottom_button" />
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="remove_character_button">
+                    <property name="label">⟵</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <style>
+                      <class name="bottom_button" />
+                    </style>
+                  </object>
+                </child>
               </object>
             </child>
             <child>

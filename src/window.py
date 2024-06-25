@@ -26,6 +26,9 @@ class SingwriterWindow(Adw.ApplicationWindow):
     grid = Gtk.Template.Child()
     symbol_screen_button = Gtk.Template.Child()
     symbol_screen = Gtk.Template.Child()
+    remove_character_button = Gtk.Template.Child()
+    break_line_button = Gtk.Template.Child()
+    space_button = Gtk.Template.Child()
 
     boxes = dict()
     current_box = None
@@ -62,6 +65,9 @@ class SingwriterWindow(Adw.ApplicationWindow):
 
         kwargs['application'].create_action('change-size', self.change_grid_size)
         self.symbol_screen_button.connect('clicked', self.push_screen)
+        self.remove_character_button.connect('clicked', self.back_space)
+        self.break_line_button.connect('clicked', self.break_line)
+        self.space_button.connect('clicked', self.space)
 
     def add_grid_size(self, grid, row_quantity, column_quantity, boxes):
         for num in range(row_quantity):
@@ -100,10 +106,12 @@ class SingwriterWindow(Adw.ApplicationWindow):
         current_reveal_state = self.revealer.get_reveal_child()
 
         if not current_reveal_state:
+            self.revealer.get_style_context().remove_class('noRevealer')
             self.revealer.get_style_context().add_class('revealer')
             self.symbol_screen_button.set_icon_name('pan-down-symbolic')
         else:
             self.revealer.get_style_context().remove_class('revealer')
+            self.revealer.get_style_context().add_class('noRevealer')
             self.symbol_screen_button.set_icon_name('pan-up-symbolic')
 
         self.revealer.set_reveal_child(not current_reveal_state)
@@ -123,6 +131,30 @@ class SingwriterWindow(Adw.ApplicationWindow):
             self.boxes[self.current_box].get_style_context().remove_class('yellow')
             self.boxes[gesture.id].get_style_context().add_class('yellow')
             self.current_box = gesture.id
+
+    def back_space(self, widget):
+        if self.current_box != None:
+            box = self.boxes[self.current_box]
+            label = box.get_last_child()
+            current_text = label.get_label()
+            new_text = current_text[:-1]
+            label.set_text(new_text)
+
+    def break_line(self, widget):
+        if self.current_box != None:
+            box = self.boxes[self.current_box]
+            label = box.get_last_child()
+            current_text = label.get_label()
+            new_text = current_text + '\n'
+            label.set_text(new_text)
+
+    def space(self, widget):
+        if self.current_box != None:
+            box = self.boxes[self.current_box]
+            label = box.get_last_child()
+            current_text = label.get_label()
+            new_text = current_text + ' '
+            label.set_text(new_text)
 
 class GridSizeDialog(Gtk.Dialog):
 
