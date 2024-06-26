@@ -103,15 +103,15 @@
   <menu id="primary_menu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">_Preferences</attribute>
+        <attribute name="label" translatable="yes">_Preferencias</attribute>
         <attribute name="action">app.preferences</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
+        <attribute name="label" translatable="yes">_Atalhos</attribute>
         <attribute name="action">win.show-help-overlay</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">_About SingWriter</attribute>
+        <attribute name="label" translatable="yes">_Sobre SingWriter</attribute>
         <attribute name="action">app.about</attribute>
       </item>
     </section>

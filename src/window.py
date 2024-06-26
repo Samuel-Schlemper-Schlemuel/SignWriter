@@ -69,6 +69,8 @@ class SingwriterWindow(Adw.ApplicationWindow):
         self.break_line_button.connect('clicked', self.break_line)
         self.space_button.connect('clicked', self.space)
 
+        self.add_controller(self.create_shortcut_controller())
+
     def add_grid_size(self, grid, row_quantity, column_quantity, boxes):
         for num in range(row_quantity):
             grid.insert_row(num)
@@ -132,7 +134,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
             self.boxes[gesture.id].get_style_context().add_class('yellow')
             self.current_box = gesture.id
 
-    def back_space(self, widget):
+    def back_space(self, *args):
         if self.current_box != None:
             box = self.boxes[self.current_box]
             label = box.get_last_child()
@@ -140,7 +142,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
             new_text = current_text[:-1]
             label.set_text(new_text)
 
-    def break_line(self, widget):
+    def break_line(self, *args):
         if self.current_box != None:
             box = self.boxes[self.current_box]
             label = box.get_last_child()
@@ -148,13 +150,36 @@ class SingwriterWindow(Adw.ApplicationWindow):
             new_text = current_text + '\n'
             label.set_text(new_text)
 
-    def space(self, widget):
+    def space(self, *args):
         if self.current_box != None:
             box = self.boxes[self.current_box]
             label = box.get_last_child()
             current_text = label.get_label()
             new_text = current_text + ' '
             label.set_text(new_text)
+
+    def create_shortcut_controller(self):
+        shortcut_controller = Gtk.ShortcutController.new()
+
+        shortcut_break_line = Gtk.Shortcut.new(
+            trigger=Gtk.ShortcutTrigger.parse_string("<Ctrl>Return"),
+            action=Gtk.CallbackAction.new(callback=self.break_line)
+        )
+
+        shortcut_space = Gtk.Shortcut.new(
+            trigger=Gtk.ShortcutTrigger.parse_string("<Ctrl>space"),
+            action=Gtk.CallbackAction.new(callback=self.space)
+        )
+
+        shortcut_back_space = Gtk.Shortcut.new(
+            trigger=Gtk.ShortcutTrigger.parse_string("<Ctrl>BackSpace"),
+            action=Gtk.CallbackAction.new(callback=self.back_space)
+        )
+
+        shortcut_controller.add_shortcut(shortcut_break_line)
+        shortcut_controller.add_shortcut(shortcut_space)
+        shortcut_controller.add_shortcut(shortcut_back_space)
+        return shortcut_controller
 
 class GridSizeDialog(Gtk.Dialog):
 
@@ -248,7 +273,7 @@ class SymbolScreen():
         self.hand_format.emit('clicked')
 
     def hand_format_screen(self, widget):
-        self.clean_symbol_screen_grid()
+        self.clean_symbol_screen_grid(23)
 
         characters_list = ['𝠀', '𝠁', '𝠂', '𝠃', '𝠄', '𝠅', '𝠆', '𝠇', '𝠈', '𝠉', '𝠊', '𝠋', '𝠌',
         '𝠍', '𝠎', '𝠏', '𝠐', '𝠑', '𝠒', '𝠓', '𝠔', '𝠕', '𝠖', '𝠘', '𝠗', '𝠙', '𝠚', '𝠛', '𝠜',
@@ -271,7 +296,7 @@ class SymbolScreen():
         self.add_characters(characters_list)
 
     def movement_screen(self, widget):
-        self.clean_symbol_screen_grid()
+        self.clean_symbol_screen_grid(21)
 
         characters_list = ['𝤅', '𝤆', '𝤇', '𝤈', '𝤉', '𝤊', '𝤋', '𝤌', '𝤍', '𝤎', '𝤏',
         '𝤐', '𝤑', '𝤒', '𝤓', '𝤔', '𝤔', '𝤕', '𝤖', '𝤗', '𝤘', '𝤙', '𝤚', '𝤛', '𝤜', '𝤝',
@@ -293,7 +318,7 @@ class SymbolScreen():
         self.add_characters(characters_list)
 
     def sing_local_screen(self, widget):
-        self.clean_symbol_screen_grid()
+        self.clean_symbol_screen_grid(8)
 
         characters_list = ['𝧿', '𝨷', '𝨸', '𝨹', '𝨺', '𝩭', '𝩮', '𝩯', '𝩰', '𝩱', '𝩲', '𝩳',
         '𝩴', '𝩶', '𝩷', '𝩸', '𝩹', '𝩺', '𝩻', '𝩼', '𝩽', '𝩾', '𝩿', '𝪀', '𝪁', '𝪂', '𝪃',
@@ -302,7 +327,7 @@ class SymbolScreen():
         self.add_characters(characters_list)
 
     def transformation_screen(self, widget):
-        self.clean_symbol_screen_grid()
+        self.clean_symbol_screen_grid(14)
 
         characters_list = ['𝨀', '𝨁', '𝨂', '𝨃', '𝨄', '𝨅', '𝨆', '𝨇', '𝨈', '𝨉', '𝨊', '𝨋', '𝨌', '𝨍', '𝨏', '𝨎', '𝨑', '𝨒', '𝨓',
         '𝨔', '𝨕', '𝨖', '𝨗', '𝨘', '𝨙', '𝨚', '𝨜', '𝨛', '𝨞', '𝨝', '𝨟', '𝨠', '𝨡', '𝨢', '𝨣',
@@ -310,12 +335,12 @@ class SymbolScreen():
         '𝨴', '𝨵', '𝨶', '𝨼', '𝨻', '𝨽', '𝨾', '𝨿', '𝩀', '𝩂', '𝩁', '𝩃', '𝩄', '𝩅', '𝩆', '𝩇',
         '𝩈', '𝩉', '𝩊', '𝩋', '𝩌', '𝩍', '𝩎', '𝩏', '𝩐', '𝩑', '𝩒', '𝩓', '𝩔', '𝩖', '𝩕', '𝩗',
         '𝩘', '𝩙', '𝩚', '𝩛', '𝩜', '𝩝', '𝩞', '𝩟', '𝩠', '𝩡', '𝩢', '𝩣', '𝩤', '𝩥', '𝩦', '𝩧',
-        '𝩨', '𝩩', '𝩪', '𝩫', '𝩬', '𝩵', '𝪄', '𝪛', '𝪜', '𝪝', '𝪞', '𝪟', '𝪡', '𝪢', '𝪣',
-        '𝪤', '𝪥', '𝪦', '𝪧', '𝪨', '𝪩', '𝪪', '𝪫', '𝪬', '𝪭', '𝪮', '𝪯']
+        '𝩨', '𝩩', '𝩪', '𝩫', '𝩬', '𝩵', '𝪄', ' ', ' ', '(𝢦)', '➝', '𝢈𝪛', '𝢦𝪜', '𝢦𝪝', '𝢦𝪞', '𝢦𝪟',
+        '𝢦𝪡','𝢦𝪢', '𝢦𝪣', '𝢦𝪤', '𝢦𝪥', '𝢦𝪦', '𝢦𝪧', '𝢦𝪨', '𝢦𝪩', '𝢦𝪪', '𝢦𝪫', '𝢦𝪬', '𝢦𝪭', '𝢦𝪮', '𝢦𝪯']
 
         self.add_characters(characters_list)
 
-    def clean_symbol_screen_grid(self):
+    def clean_symbol_screen_grid(self, new_row_quantity):
         for row in range(self.symbol_screen_grid_row_quantity):
             for column in range(self.symbol_screen_grid_column_quantity):
                 child = self.symbol_screen_grid.get_child_at(column, row)
@@ -333,6 +358,8 @@ class SymbolScreen():
                 if self.transformation.get_parent():
                     self.transformation.get_parent().remove(self.transformation)
 
+        self.symbol_screen_grid_row_quantity = new_row_quantity
+
         self.parent.add_grid_size(grid = self.symbol_screen_grid,
                            row_quantity = self.symbol_screen_grid_row_quantity,
                            column_quantity = self.symbol_screen_grid_column_quantity,
@@ -340,7 +367,7 @@ class SymbolScreen():
 
         self.symbol_screen_grid.attach(self.hand_format,       column = 0, row = 0, width = 3, height = 1)
         self.symbol_screen_grid.attach(self.movement,          column = 3, row = 0, width = 3, height = 1)
-        self.symbol_screen_grid.attach(self.sing_local, column = 6, row = 0, width = 3, height = 1)
+        self.symbol_screen_grid.attach(self.sing_local,        column = 6, row = 0, width = 3, height = 1)
         self.symbol_screen_grid.attach(self.transformation,    column = 9, row = 0, width = 3, height = 1)
 
     def add_characters(self, characters):
@@ -373,5 +400,15 @@ class SymbolScreen():
             box = self.parent.boxes[self.parent.current_box]
             label = box.get_last_child()
             current_text = label.get_label()
-            label.set_text(current_text + f"{gesture.id}")
+            character = gesture.id
+
+            change = ['(𝢦)', '➝', '𝢈𝪛', '𝢦𝪜', '𝢦𝪝', '𝢦𝪞', '𝢦𝪟', '𝢦𝪡','𝢦𝪢', '𝢦𝪣', '𝢦𝪤',
+                      '𝢦𝪥', '𝢦𝪦', '𝢦𝪧', '𝢦𝪨', '𝢦𝪩', '𝢦𝪪', '𝢦𝪫', '𝢦𝪬', '𝢦𝪭', '𝢦𝪮', '𝢦𝪯']
+
+            to = ['', '', '𝪛', '𝪜', '𝪝', '𝪞', '𝪟', '𝪡', '𝪢', '𝪣', '𝪤', '𝪥', '𝪦', '𝪧', '𝪨', '𝪩', '𝪪', '𝪫', '𝪬', '𝪭', '𝪮', '𝪯']
+
+            if character in change:
+                character = to[change.index(character)]
+
+            label.set_text(current_text + character)
 
