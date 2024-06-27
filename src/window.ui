@@ -122,6 +122,10 @@
         <attribute name="label" translatable="yes">_Mudar tamanho</attribute>
         <attribute name="action">app.change-size</attribute>
       </item>
+      <item>
+        <attribute name="label" translatable="yes">_Salvar como .pdf</attribute>
+        <attribute name="action">app.save-pdf</attribute>
+      </item>
     </section>
   </menu>
 </interface>

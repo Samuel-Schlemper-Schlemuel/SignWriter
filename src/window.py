@@ -17,7 +17,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Adw, Gtk, Gio, Gdk
+from gi.repository import Adw, Gtk, Gio, Gdk, GLib, PangoCairo, Pango
+import io, cairo
 
 @Gtk.Template(resource_path='/com/github/SamuelSchlemperSchlemuel/SingWriter/window.ui')
 class SingwriterWindow(Adw.ApplicationWindow):
@@ -32,12 +33,13 @@ class SingwriterWindow(Adw.ApplicationWindow):
 
     boxes = dict()
     current_box = None
+    text_list = list()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.grid_row_quantity = 6
-        self.grid_column_quantity = 10
+        self.grid_row_quantity = 8
+        self.grid_column_quantity = 6
         self.add_grid_size(grid = self.grid,
                            row_quantity = self.grid_row_quantity,
                            column_quantity = self.grid_column_quantity,
@@ -63,7 +65,14 @@ class SingwriterWindow(Adw.ApplicationWindow):
 
         self.symbol_screen.append(self.revealer)
 
+        self.page_width = 595
+        self.page_height = 842
+
+        save_file = SaveFile(self)
+
         kwargs['application'].create_action('change-size', self.change_grid_size)
+        kwargs['application'].create_action('save-pdf', save_file.dialog)
+
         self.symbol_screen_button.connect('clicked', self.push_screen)
         self.remove_character_button.connect('clicked', self.back_space)
         self.break_line_button.connect('clicked', self.break_line)
@@ -78,6 +87,8 @@ class SingwriterWindow(Adw.ApplicationWindow):
         for num in range(column_quantity):
             grid.insert_column(num)
 
+        if boxes:
+            self.text_list = list()
 
         for row in range(row_quantity):
             for column in range(column_quantity):
@@ -92,6 +103,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
                     label = Gtk.Label()
                     label.get_style_context().add_class('character_label')
                     box.append(label)
+                    self.text_list.append('')
 
                     box.get_style_context().add_class('box')
                     self.boxes[f'{column}_{row}'] = box
@@ -142,6 +154,9 @@ class SingwriterWindow(Adw.ApplicationWindow):
             new_text = current_text[:-1]
             label.set_text(new_text)
 
+            position = int(self.current_box[2]) * self.grid_column_quantity + int(self.current_box[0])
+            self.text_list[position] = self.text_list[position][:-1]
+
     def break_line(self, *args):
         if self.current_box != None:
             box = self.boxes[self.current_box]
@@ -150,6 +165,9 @@ class SingwriterWindow(Adw.ApplicationWindow):
             new_text = current_text + '\n'
             label.set_text(new_text)
 
+            position = int(self.current_box[2]) * self.grid_column_quantity + int(self.current_box[0])
+            self.text_list[position] += '\n'
+
     def space(self, *args):
         if self.current_box != None:
             box = self.boxes[self.current_box]
@@ -157,6 +175,9 @@ class SingwriterWindow(Adw.ApplicationWindow):
             current_text = label.get_label()
             new_text = current_text + ' '
             label.set_text(new_text)
+
+            position = int(self.current_box[2]) * self.grid_column_quantity + int(self.current_box[0])
+            self.text_list[position] += ' '
 
     def create_shortcut_controller(self):
         shortcut_controller = Gtk.ShortcutController.new()
@@ -187,12 +208,12 @@ class GridSizeDialog(Gtk.Dialog):
         super().__init__(title="Mudar tamanho da grade", transient_for=parent, modal=True)
         self.parent = parent
 
-        adjustment_row = Gtk.Adjustment(value=1, lower=1, upper=100, step_increment=1, page_increment=10, page_size=0)
+        adjustment_row = Gtk.Adjustment(value=1, lower=1, upper=999, step_increment=1, page_increment=10, page_size=0)
         self.spin_button_row = Gtk.SpinButton()
         self.spin_button_row.set_adjustment(adjustment_row)
         self.spin_button_row.set_numeric(True)
 
-        adjustment_column = Gtk.Adjustment(value=1, lower=1, upper=100, step_increment=1, page_increment=10, page_size=0)
+        adjustment_column = Gtk.Adjustment(value=1, lower=1, upper=10, step_increment=1, page_increment=10, page_size=0)
         self.spin_button_column = Gtk.SpinButton()
         self.spin_button_column.set_adjustment(adjustment_column)
         self.spin_button_column.set_numeric(True)
@@ -412,3 +433,94 @@ class SymbolScreen():
 
             label.set_text(current_text + character)
 
+            position = int(self.parent.current_box[2]) * self.parent.grid_column_quantity + int(self.parent.current_box[0])
+            self.parent.text_list[position] += character
+
+class SaveFile():
+    def __init__(self, parent):
+        self.parent = parent
+
+    def dialog(self, widget, _):
+        file_dialog = Gtk.FileDialog()
+        file_dialog.set_title("Save PDF")
+        file_dialog.set_modal(True)
+        file_dialog.set_filters(self.create_pdf_filter())
+        file_dialog.save(self.parent, None, self.on_file_dialog_response)
+
+    def create_pdf_filter(self):
+        pdf_filter = Gtk.FileFilter()
+        pdf_filter.add_pattern("*.pdf")
+
+        filters = Gio.ListStore(item_type=Gtk.FileFilter)
+        filters.append(pdf_filter)
+
+        return filters
+
+    def on_file_dialog_response(self, dialog, result):
+        file = dialog.save_finish(result)
+
+        if file is not None:
+          self.create_pdf(file)
+
+    def create_pdf(self, file):
+        x, y = 25, 50
+        page_width = self.parent.page_width
+        page_height = self.parent.page_height
+        column_width = (page_width - 2*x) / self.parent.grid_column_quantity
+
+        output_stream = io.BytesIO()
+        surface = cairo.PDFSurface(output_stream, page_width, page_height)  # Size A4
+        context = cairo.Context(surface)
+
+        layout = PangoCairo.create_layout(context)
+        font_size = page_width / 4 / self.parent.grid_column_quantity
+        font_desc = Pango.FontDescription(f"Noto Sans SignWriting {font_size}")
+        layout.set_font_description(font_desc)
+
+        pdf_text = self.convert_list_to_text()
+
+        lines = pdf_text.split('\n\n')
+
+        for line in lines:
+            columns = line.split('|')
+
+            for i, column_text in enumerate(columns):
+                layout.set_text(column_text, -1)
+                column_x = x + i * column_width + (column_width - layout.get_pixel_size()[0]) / 2
+                context.move_to(column_x, y)
+                PangoCairo.show_layout(context, layout)
+
+                if i < len(columns) - 1:
+                    # Desenha linha vertical entre as colunas
+                    context.move_to(x + (i + 1) * column_width, y)
+                    context.line_to(x + (i + 1) * column_width, y + layout.get_pixel_size()[1] + 100)
+                    context.stroke()
+
+            y += layout.get_pixel_size()[1] + 50  # Atualiza a posição Y para a próxima linha
+
+        surface.finish()
+        pdf_data = GLib.Bytes.new(output_stream.getvalue())
+
+        file.replace_contents_bytes_async(
+            pdf_data,
+            None,
+            False,
+            Gio.FileCreateFlags.NONE,
+            None,
+            self.save_file_complete
+        )
+
+    def save_file_complete(self, file, result):
+        pass
+
+    def convert_list_to_text(self):
+        result_text = ''
+
+        for i in range(len(self.parent.text_list)):
+            if (i + 1) % self.parent.grid_column_quantity == 0:
+                result_text += self.parent.text_list[i]
+                result_text += '\n\n'
+            else:
+                result_text += self.parent.text_list[i] + '|'
+
+        return result_text
