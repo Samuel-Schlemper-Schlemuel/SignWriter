@@ -67,6 +67,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
 
         self.page_width = 595
         self.page_height = 842
+        self.font_size = 20
 
         save_file = SaveFile(self)
 
@@ -130,7 +131,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
 
         self.revealer.set_reveal_child(not current_reveal_state)
 
-    def select_box(self, gesture, clicks, horizontal, vertical):
+    def select_box(self, gesture, *args):
         #Activated when the user clicks in a box
 
         marked = dict()
@@ -179,6 +180,56 @@ class SingwriterWindow(Adw.ApplicationWindow):
             position = int(self.current_box[2]) * self.grid_column_quantity + int(self.current_box[0])
             self.text_list[position] += ' '
 
+    def right(self, *args):
+        if self.current_box != None:
+            gesture = Gtk.GestureClick()
+
+            if self.current_box[0] == f'{self.grid_column_quantity - 1}':
+                if self.current_box[2] == f'{self.grid_row_quantity - 1}':
+                    gesture.id = '0_0'
+                else:
+                    gesture.id = f'0_{int(self.current_box[2]) + 1}'
+            else:
+                gesture.id = f'{int(self.current_box[0]) + 1}_{self.current_box[2]}'
+
+            self.select_box(gesture)
+
+    def left(self, *args):
+        if self.current_box != None:
+            gesture = Gtk.GestureClick()
+
+            if self.current_box[0] == '0':
+                if self.current_box[2] == f'0':
+                    gesture.id = f'{self.grid_column_quantity - 1}_{self.grid_row_quantity - 1}'
+                else:
+                    gesture.id = f'{self.grid_column_quantity - 1}_{int(self.current_box[2]) - 1}'
+            else:
+                gesture.id = f'{int(self.current_box[0]) - 1}_{self.current_box[2]}'
+
+            self.select_box(gesture)
+
+    def up(self, *args):
+        if self.current_box != None:
+            gesture = Gtk.GestureClick()
+
+            if self.current_box[2] == f'0':
+                gesture.id = f'{self.current_box[0]}_{self.grid_row_quantity - 1}'
+            else:
+                gesture.id = f'{self.current_box[0]}_{int(self.current_box[2]) - 1}'
+
+            self.select_box(gesture)
+
+    def down(self, *args):
+         if self.current_box != None:
+            gesture = Gtk.GestureClick()
+
+            if self.current_box[2] == f'{self.grid_row_quantity - 1}':
+                gesture.id = f'{self.current_box[0]}_0'
+            else:
+                gesture.id = f'{self.current_box[0]}_{int(self.current_box[2]) + 1}'
+
+            self.select_box(gesture)
+
     def create_shortcut_controller(self):
         shortcut_controller = Gtk.ShortcutController.new()
 
@@ -197,9 +248,34 @@ class SingwriterWindow(Adw.ApplicationWindow):
             action=Gtk.CallbackAction.new(callback=self.back_space)
         )
 
+        shortcut_right = Gtk.Shortcut.new(
+            trigger=Gtk.ShortcutTrigger.parse_string("Right"),
+            action=Gtk.CallbackAction.new(callback=self.right)
+        )
+
+        shortcut_left = Gtk.Shortcut.new(
+            trigger=Gtk.ShortcutTrigger.parse_string("Left"),
+            action=Gtk.CallbackAction.new(callback=self.left)
+        )
+
+        shortcut_up = Gtk.Shortcut.new(
+            trigger=Gtk.ShortcutTrigger.parse_string("Up"),
+            action=Gtk.CallbackAction.new(callback=self.up)
+        )
+
+        shortcut_down = Gtk.Shortcut.new(
+            trigger=Gtk.ShortcutTrigger.parse_string("Down"),
+            action=Gtk.CallbackAction.new(callback=self.down)
+        )
+
         shortcut_controller.add_shortcut(shortcut_break_line)
         shortcut_controller.add_shortcut(shortcut_space)
         shortcut_controller.add_shortcut(shortcut_back_space)
+        shortcut_controller.add_shortcut(shortcut_right)
+        shortcut_controller.add_shortcut(shortcut_left)
+        shortcut_controller.add_shortcut(shortcut_up)
+        shortcut_controller.add_shortcut(shortcut_down)
+
         return shortcut_controller
 
 class GridSizeDialog(Gtk.Dialog):
@@ -463,7 +539,7 @@ class SaveFile():
           self.create_pdf(file)
 
     def create_pdf(self, file):
-        x, y = 25, 50
+        x, y = 10, 50
         page_width = self.parent.page_width
         page_height = self.parent.page_height
         column_width = (page_width - 2*x) / self.parent.grid_column_quantity
@@ -473,8 +549,7 @@ class SaveFile():
         context = cairo.Context(surface)
 
         layout = PangoCairo.create_layout(context)
-        font_size = page_width / 4 / self.parent.grid_column_quantity
-        font_desc = Pango.FontDescription(f"Noto Sans SignWriting {font_size}")
+        font_desc = Pango.FontDescription(f"Noto Sans SignWriting {self.parent.font_size}")
         layout.set_font_description(font_desc)
 
         pdf_text = self.convert_list_to_text()
@@ -493,10 +568,10 @@ class SaveFile():
                 if i < len(columns) - 1:
                     # Desenha linha vertical entre as colunas
                     context.move_to(x + (i + 1) * column_width, y)
-                    context.line_to(x + (i + 1) * column_width, y + layout.get_pixel_size()[1] + 100)
+                    context.line_to(x + (i + 1) * column_width, page_height - y)
                     context.stroke()
 
-            y += layout.get_pixel_size()[1] + 50  # Atualiza a posição Y para a próxima linha
+            y += layout.get_pixel_size()[1] + 70  # Atualiza a posição Y para a próxima linha
 
         surface.finish()
         pdf_data = GLib.Bytes.new(output_stream.getvalue())
