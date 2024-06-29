@@ -1,0 +1,31 @@
+# Brazilian Portuguese translation for SingWriter.
+# This file is distributed under the same license as the SingWriter package.
+# Samuel Schlemper <samuelschlemper2006@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: singwriter master\n"
+"Report-Msgid-Bugs-To: https://github.com/Samuel-Schlemper-Schlemuel/"
+"SingWriter\n"
+"PO-Creation-Date: 2024-06-28 17:45+0000\n"
+"Last-Translator: Samuel Schlemper <samuelschlemper2006@gmail.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Portuguese <samuelschlemper2006@gmail.com>\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"PO-Revision-Date: 2024-06-29 13:47-0300\n"
+"X-Generator: Gtranslator 46.1\n"
+
+msgid "Arquive"
+msgstr "Arquivo"
+
+msgid "Change grid size"
+msgstr "Mudar tamanho da grades"
+
+msgid "Hand format"
+msgstr "Formato da mão"
+
+msgid "Movement"
+msgstr "Movimento"

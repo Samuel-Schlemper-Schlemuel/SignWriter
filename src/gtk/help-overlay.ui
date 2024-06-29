@@ -4,38 +4,38 @@
     <property name="modal">True</property>
     <child>
       <object class="GtkShortcutsSection">
-        <property name="section-name">Atalhos</property>
+        <property name="section-name">Shorcuts</property>
         <property name="max-height">10</property>
         <child>
           <object class="GtkShortcutsGroup">
-            <property name="title" translatable="yes" context="shortcut window">Geral</property>
+            <property name="title" translatable="yes" context="shortcut window">General</property>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Mostrar atalhos</property>
+                <property name="title" translatable="yes" context="shortcut window">Show Shorcuts</property>
                 <property name="action-name">win.show-help-overlay</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Sair</property>
+                <property name="title" translatable="yes" context="shortcut window">Quit</property>
                 <property name="action-name">app.quit</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Quebra de linha</property>
+                <property name="title" translatable="yes" context="shortcut window">Break line</property>
                 <property name="accelerator">&lt;Ctrl&gt;Return</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Espaço</property>
+                <property name="title" translatable="yes" context="shortcut window">Space</property>
                 <property name="accelerator">&lt;Ctrl&gt;space</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Apagar</property>
+                <property name="title" translatable="yes" context="shortcut window">Delete</property>
                 <property name="accelerator">&lt;Ctrl&gt;BackSpace</property>
               </object>
             </child>

@@ -18,9 +18,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from gi.repository import Adw, Gtk, Gio, Gdk, GLib, PangoCairo, Pango
-import io, cairo
+import io, cairo, gettext
 
-@Gtk.Template(resource_path='/com/github/SamuelSchlemperSchlemuel/SingWriter/window.ui')
+gettext.bindtextdomain("singwriter", "/usr/share/locale")
+gettext.textdomain("singwriter")
+_ = gettext.gettext
+
+@Gtk.Template(resource_path='/io/github/SamuelSchlemperSchlemuel/SingWriter/window.ui')
 class SingwriterWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'SingwriterWindow'
 
@@ -46,7 +50,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
                            boxes = True)
 
         style_provider = Gtk.CssProvider()
-        resource_path_style = '/com/github/SamuelSchlemperSchlemuel/SingWriter/style.css'
+        resource_path_style = '/io/github/SamuelSchlemperSchlemuel/SingWriter/style.css'
         style_provider.load_from_path(f'resource://{resource_path_style}')
 
         symbol_screen = SymbolScreen(self)
@@ -71,7 +75,9 @@ class SingwriterWindow(Adw.ApplicationWindow):
 
         save_file = SaveFile(self)
 
-        kwargs['application'].create_action('change-size', self.change_grid_size)
+        kwargs['application'].create_action('change-grid-size', self.change_grid_size)
+        kwargs['application'].create_action('change-font-size', self.change_font_size)
+        kwargs['application'].create_action('change-pdf-size', self.change_pdf_size)
         kwargs['application'].create_action('save-pdf', save_file.dialog)
 
         self.symbol_screen_button.connect('clicked', self.push_screen)
@@ -111,8 +117,16 @@ class SingwriterWindow(Adw.ApplicationWindow):
 
                 grid.attach(box, column, row, 1, 1)
 
-    def change_grid_size(self, widget, _):
+    def change_grid_size(self, *args):
         dialog = GridSizeDialog(self)
+        dialog.show()
+
+    def change_font_size(self, *args):
+        dialog = FontSizeDialog(self)
+        dialog.show()
+
+    def change_pdf_size(self, *args):
+        dialog = PdfSizeDialog(self)
         dialog.show()
 
     def push_screen(self, widget):
@@ -281,7 +295,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
 class GridSizeDialog(Gtk.Dialog):
 
     def __init__(self, parent):
-        super().__init__(title="Mudar tamanho da grade", transient_for=parent, modal=True)
+        super().__init__(title="Change grid size", transient_for=parent, modal=True)
         self.parent = parent
 
         adjustment_row = Gtk.Adjustment(value=1, lower=1, upper=999, step_increment=1, page_increment=10, page_size=0)
@@ -294,11 +308,11 @@ class GridSizeDialog(Gtk.Dialog):
         self.spin_button_column.set_adjustment(adjustment_column)
         self.spin_button_column.set_numeric(True)
 
-        button = Gtk.Button(label='Mudar tamanho da grade')
+        button = Gtk.Button(label='Change grid size')
         button.connect('clicked', self.actualize_grid_size)
 
-        label_row = Gtk.Label(label='Quantidade de linhas')
-        label_column = Gtk.Label(label='Quantidade de colunas')
+        label_row = Gtk.Label(label='Number of rows')
+        label_column = Gtk.Label(label='Number of columns')
 
         box = Gtk.Box(spacing=6, orientation=Gtk.Orientation.VERTICAL)
         box.append(label_row)
@@ -319,6 +333,7 @@ class GridSizeDialog(Gtk.Dialog):
                                   column_quantity = self.parent.grid_column_quantity,
                                   boxes = True)
         self.response(Gtk.ResponseType.OK)
+        self.close()
 
     def remove_grid_children(self):
         # Clean the grid with the boxes
@@ -332,26 +347,93 @@ class GridSizeDialog(Gtk.Dialog):
             for num in range(self.parent.grid_column_quantity):
                 self.parent.grid.remove_column(0)
 
+class FontSizeDialog(Gtk.Dialog):
+
+    def __init__(self, parent):
+        super().__init__(title="Change font size", transient_for=parent, modal=True)
+        self.parent = parent
+
+        adjustment = Gtk.Adjustment(value=20, lower=10, upper=50, step_increment=1, page_increment=10, page_size=0)
+        self.spin_button = Gtk.SpinButton()
+        self.spin_button.set_adjustment(adjustment)
+        self.spin_button.set_numeric(True)
+
+        button = Gtk.Button(label='Change font size')
+        button.connect('clicked', self.actualize_font_size)
+
+        label = Gtk.Label(label='The font size in the final pdf (does not change the font of the grid)')
+
+        box = Gtk.Box(spacing=6, orientation=Gtk.Orientation.VERTICAL)
+        box.append(label)
+        box.append(self.spin_button)
+        box.append(button)
+
+        content_area = self.get_content_area()
+        content_area.append(box)
+
+    def actualize_font_size(self, widget):
+        self.parent.font_size = self.spin_button.get_value_as_int()
+        self.response(Gtk.ResponseType.OK)
+        self.close()
+
+class PdfSizeDialog(Gtk.Dialog):
+
+    def __init__(self, parent):
+        super().__init__(title="Change pdf size", transient_for=parent, modal=True)
+        self.parent = parent
+
+        adjustment_height = Gtk.Adjustment(value=self.parent.page_height, lower=100, upper=5000, step_increment=20, page_increment=10, page_size=0)
+        self.spin_button_height = Gtk.SpinButton()
+        self.spin_button_height.set_adjustment(adjustment_height)
+        self.spin_button_height.set_numeric(True)
+
+        adjustment_width = Gtk.Adjustment(value=self.parent.page_width, lower=100, upper=5000, step_increment=20, page_increment=10, page_size=0)
+        self.spin_button_width = Gtk.SpinButton()
+        self.spin_button_width.set_adjustment(adjustment_width)
+        self.spin_button_width.set_numeric(True)
+
+        button = Gtk.Button(label='Change pdf size')
+        button.connect('clicked', self.actualize_pdf_size)
+
+        label_height = Gtk.Label(label='Height pdf')
+        label_width = Gtk.Label(label='Width pdf')
+
+        box = Gtk.Box(spacing=6, orientation=Gtk.Orientation.VERTICAL)
+        box.append(label_height)
+        box.append(self.spin_button_height)
+        box.append(label_width)
+        box.append(self.spin_button_width)
+        box.append(button)
+
+        content_area = self.get_content_area()
+        content_area.append(box)
+
+    def actualize_pdf_size(self, widget):
+        self.parent.page_height = self.spin_button_height.get_value_as_int()
+        self.parent.page_width = self.spin_button_width.get_value_as_int()
+        self.response(Gtk.ResponseType.OK)
+        self.close()
+
 class SymbolScreen():
     def __init__(self, parent):
         self.parent = parent
         self.symbol_screen_content()
 
     def symbol_screen_content(self):
-        self.hand_format = Gtk.Button(label="Formato da mão")
-        self.movement = Gtk.Button(label="Movimento")
-        self.sing_local = Gtk.Button(label="Local do sinal")
-        self.transformation = Gtk.Button(label="Transformação")
+        self.hand_format = Gtk.Button(label=_("Hand format"))
+        self.movement = Gtk.Button(label=_("Movement"))
+        self.sing_local = Gtk.Button(label=_("Signal Location"))
+        self.transformation = Gtk.Button(label=_("Transformation"))
 
         self.hand_format.connect('clicked', self.hand_format_screen)
         self.movement.connect('clicked', self.movement_screen)
         self.sing_local.connect('clicked', self.sing_local_screen)
         self.transformation.connect('clicked', self.transformation_screen)
 
-        self.hand_format.get_style_context().add_class('button_content_revealer')
-        self.movement.get_style_context().add_class('button_content_revealer')
-        self.sing_local.get_style_context().add_class('button_content_revealer')
-        self.transformation.get_style_context().add_class('button_content_revealer')
+        self.hand_format.get_style_context().add_class('button_content_reveal')
+        self.movement.get_style_context().add_class('button_content_reveal')
+        self.sing_local.get_style_context().add_class('button_content_reveal')
+        self.transformation.get_style_context().add_class('button_content_reveal')
 
         self.symbol_screen_grid = Gtk.Grid()
         self.symbol_screen_grid.set_column_homogeneous(True)
@@ -520,17 +602,7 @@ class SaveFile():
         file_dialog = Gtk.FileDialog()
         file_dialog.set_title("Save PDF")
         file_dialog.set_modal(True)
-        file_dialog.set_filters(self.create_pdf_filter())
         file_dialog.save(self.parent, None, self.on_file_dialog_response)
-
-    def create_pdf_filter(self):
-        pdf_filter = Gtk.FileFilter()
-        pdf_filter.add_pattern("*.pdf")
-
-        filters = Gio.ListStore(item_type=Gtk.FileFilter)
-        filters.append(pdf_filter)
-
-        return filters
 
     def on_file_dialog_response(self, dialog, result):
         file = dialog.save_finish(result)
@@ -545,7 +617,7 @@ class SaveFile():
         column_width = (page_width - 2*x) / self.parent.grid_column_quantity
 
         output_stream = io.BytesIO()
-        surface = cairo.PDFSurface(output_stream, page_width, page_height)  # Size A4
+        surface = cairo.PDFSurface(output_stream, page_width, page_height)
         context = cairo.Context(surface)
 
         layout = PangoCairo.create_layout(context)
@@ -566,12 +638,11 @@ class SaveFile():
                 PangoCairo.show_layout(context, layout)
 
                 if i < len(columns) - 1:
-                    # Desenha linha vertical entre as colunas
                     context.move_to(x + (i + 1) * column_width, y)
                     context.line_to(x + (i + 1) * column_width, page_height - y)
                     context.stroke()
 
-            y += layout.get_pixel_size()[1] + 70  # Atualiza a posição Y para a próxima linha
+            y += layout.get_pixel_size()[1] + 70
 
         surface.finish()
         pdf_data = GLib.Bytes.new(output_stream.getvalue())

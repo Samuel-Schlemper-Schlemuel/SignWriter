@@ -19,6 +19,7 @@
 
 import sys
 import gi
+import gettext
 
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
@@ -31,11 +32,13 @@ class SingwriterApplication(Adw.Application):
     """The main application singleton class."""
 
     def __init__(self):
-        super().__init__(application_id='com.github.SamuelSchlemperSchlemuel.SingWriter',
+        super().__init__(application_id='io.github.SamuelSchlemperSchlemuel.SingWriter',
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
-        self.create_action('preferences', self.on_preferences_action)
+
+        gettext.bindtextdomain("singwriter", "/usr/share/locale")
+        gettext.textdomain("singwriter")
 
     def do_activate(self):
         """Called when the application is activated.
@@ -52,16 +55,12 @@ class SingwriterApplication(Adw.Application):
         """Callback for the app.about action."""
         about = Adw.AboutWindow(transient_for=self.props.active_window,
                                 application_name='SingWriter',
-                                application_icon='com.github.SamuelSchlemperSchlemuel.SingWriter',
+                                application_icon='io.github.SamuelSchlemperSchlemuel.SingWriter',
                                 developer_name='Samuel Schlemper',
-                                version='0.1.0',
+                                version='1.0.0',
                                 developers=['Samuel Schlemper (𝣡𝪛𝧢)'],
                                 copyright='© 2024 Samuel Schlemper')
         about.present()
-
-    def on_preferences_action(self, widget, _):
-        """Callback for the app.preferences action."""
-        print('app.preferences action activated')
 
     def create_action(self, name, callback, shortcuts=None):
         """Add an application action.

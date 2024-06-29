@@ -1,5 +1,5 @@
 {
-    "id" : "com.github.SamuelSchlemperSchlemuel.SingWriter",
+    "id" : "io.github.SamuelSchlemperSchlemuel.SingWriter",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "46",
     "sdk" : "org.gnome.Sdk",
@@ -24,7 +24,7 @@
     ],
     "modules" : [
         {
-            "name" : "singwriter",
+            "name" : "SingWriter",
             "builddir" : true,
             "buildsystem" : "meson",
             "sources" : [
