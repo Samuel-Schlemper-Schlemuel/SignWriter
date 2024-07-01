@@ -3,8 +3,8 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="Adw" version="1.0"/>
   <template class="SingwriterWindow" parent="AdwApplicationWindow">
-    <property name="default-height">3000</property>
-    <property name="default-width">3000</property>
+    <property name="default-height">550</property>
+    <property name="default-width">850</property>
     <property name="title">SingWriter</property>
     <property name="content">
       <object class="AdwToolbarView">
@@ -12,7 +12,7 @@
           <object class="AdwHeaderBar" id="header_bar">
             <child type="start">
               <object class="GtkMenuButton">
-                <property name="label">Arquive</property>
+                <property name="label" translatable="yes">Arquive</property>
                 <property name="menu-model">arquive</property>
               </object>
             </child>
@@ -57,7 +57,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="space_button">
-                    <property name="label">﹈</property>
+                    <property name="label">_</property>
                     <property name="halign">start</property>
                     <property name="valign">center</property>
                     <style>
@@ -103,11 +103,11 @@
   <menu id="primary_menu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">_Shortcuts</attribute>
+        <attribute name="label" translatable="yes">Shortcuts</attribute>
         <attribute name="action">win.show-help-overlay</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">_About SingWriter</attribute>
+        <attribute name="label" translatable="yes">About SingWriter</attribute>
         <attribute name="action">app.about</attribute>
       </item>
     </section>
@@ -115,19 +115,19 @@
   <menu id="arquive">
     <section>
       <item>
-        <attribute name="label" translatable="yes">_Change grid size</attribute>
+        <attribute name="label" translatable="yes">Change grid size</attribute>
         <attribute name="action">app.change-grid-size</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">_Change font size</attribute>
+        <attribute name="label" translatable="yes">Change font size</attribute>
         <attribute name="action">app.change-font-size</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">_Change pdf size</attribute>
+        <attribute name="label" translatable="yes">Change pdf size</attribute>
         <attribute name="action">app.change-pdf-size</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">_Save as .pdf</attribute>
+        <attribute name="label" translatable="yes">Save as .pdf</attribute>
         <attribute name="action">app.save-pdf</attribute>
       </item>
     </section>

@@ -1,13 +1,18 @@
 project('singwriter',
-          version: '0.1.0',
+          version: '1.0.0',
     meson_version: '>= 0.62.0',
-  default_options: [ 'warning_level=2', 'werror=false', ],
+  default_options: [ 'warning_level=2', 'werror=false' ],
 )
 
 i18n = import('i18n')
 gnome = import('gnome')
+python = import('python')
 
+py_installation = python.find_installation('python3')
 
+if not py_installation.found()
+    error('No valid python3 binary found')
+endif
 
 subdir('data')
 subdir('src')

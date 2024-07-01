@@ -37,8 +37,16 @@
 
 <screenshots>
   <screenshot type="default">
-    <image>https://example.org/example1.png</image>
-    <caption>A caption</caption>
+    <image>https://github.com/Samuel-Schlemper-Schlemuel/SingWriter/tree/main/data/prints/EnglishPrincipal.png</image>
+    <image xml:lang="pt_BR">https://github.com/Samuel-Schlemper-Schlemuel/SingWriter/tree/main/data/prints/PortuguesPrincipal.png</image>
+    <caption>The home page</caption>
+    <caption xml:lang="pt_BR">Página inicial</caption>
+  </screenshot>
+  <screenshot>
+    <image>https://github.com/Samuel-Schlemper-Schlemuel/SingWriter/tree/main/data/prints/EnglishHandFormat.png</image>
+    <image xml:lang="pt_BR">https://github.com/Samuel-Schlemper-Schlemuel/SingWriter/tree/main/data/prints/PortuguesFormatoDaMao.png</image>
+    <caption>The home page with the hand format screen</caption>
+    <caption xml:lang="pt_BR">A página inicial com a tela de formato de mão</caption>
   </screenshot>
 </screenshots>
 

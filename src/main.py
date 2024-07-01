@@ -19,14 +19,13 @@
 
 import sys
 import gi
-import gettext
 
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 
 from gi.repository import Gtk, Gio, Adw
 from .window import SingwriterWindow
-
+from gettext import gettext as _
 
 class SingwriterApplication(Adw.Application):
     """The main application singleton class."""
@@ -36,9 +35,6 @@ class SingwriterApplication(Adw.Application):
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
-
-        gettext.bindtextdomain("singwriter", "/usr/share/locale")
-        gettext.textdomain("singwriter")
 
     def do_activate(self):
         """Called when the application is activated.
@@ -57,7 +53,7 @@ class SingwriterApplication(Adw.Application):
                                 application_name='SingWriter',
                                 application_icon='io.github.SamuelSchlemperSchlemuel.SingWriter',
                                 developer_name='Samuel Schlemper',
-                                version='1.0.0',
+                                version='1.0.17',
                                 developers=['Samuel Schlemper (𝣡𝪛𝧢)'],
                                 copyright='© 2024 Samuel Schlemper')
         about.present()

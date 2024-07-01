@@ -18,11 +18,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from gi.repository import Adw, Gtk, Gio, Gdk, GLib, PangoCairo, Pango
-import io, cairo, gettext
-
-gettext.bindtextdomain("singwriter", "/usr/share/locale")
-gettext.textdomain("singwriter")
-_ = gettext.gettext
+import io, cairo
+from gettext import gettext as _
 
 @Gtk.Template(resource_path='/io/github/SamuelSchlemperSchlemuel/SingWriter/window.ui')
 class SingwriterWindow(Adw.ApplicationWindow):
@@ -295,7 +292,7 @@ class SingwriterWindow(Adw.ApplicationWindow):
 class GridSizeDialog(Gtk.Dialog):
 
     def __init__(self, parent):
-        super().__init__(title="Change grid size", transient_for=parent, modal=True)
+        super().__init__(title=_("Change grid size"), transient_for=parent, modal=True)
         self.parent = parent
 
         adjustment_row = Gtk.Adjustment(value=1, lower=1, upper=999, step_increment=1, page_increment=10, page_size=0)
@@ -308,11 +305,11 @@ class GridSizeDialog(Gtk.Dialog):
         self.spin_button_column.set_adjustment(adjustment_column)
         self.spin_button_column.set_numeric(True)
 
-        button = Gtk.Button(label='Change grid size')
+        button = Gtk.Button(label=_('Change grid size'))
         button.connect('clicked', self.actualize_grid_size)
 
-        label_row = Gtk.Label(label='Number of rows')
-        label_column = Gtk.Label(label='Number of columns')
+        label_row = Gtk.Label(label=_('Number of rows'))
+        label_column = Gtk.Label(label=_('Number of columns'))
 
         box = Gtk.Box(spacing=6, orientation=Gtk.Orientation.VERTICAL)
         box.append(label_row)
@@ -350,7 +347,7 @@ class GridSizeDialog(Gtk.Dialog):
 class FontSizeDialog(Gtk.Dialog):
 
     def __init__(self, parent):
-        super().__init__(title="Change font size", transient_for=parent, modal=True)
+        super().__init__(title=_("Change font size"), transient_for=parent, modal=True)
         self.parent = parent
 
         adjustment = Gtk.Adjustment(value=20, lower=10, upper=50, step_increment=1, page_increment=10, page_size=0)
@@ -358,10 +355,10 @@ class FontSizeDialog(Gtk.Dialog):
         self.spin_button.set_adjustment(adjustment)
         self.spin_button.set_numeric(True)
 
-        button = Gtk.Button(label='Change font size')
+        button = Gtk.Button(label=_('Change font size'))
         button.connect('clicked', self.actualize_font_size)
 
-        label = Gtk.Label(label='The font size in the final pdf (does not change the font of the grid)')
+        label = Gtk.Label(label=_('The font size in the final pdf (does not change the font of the grid)'))
 
         box = Gtk.Box(spacing=6, orientation=Gtk.Orientation.VERTICAL)
         box.append(label)
@@ -379,7 +376,7 @@ class FontSizeDialog(Gtk.Dialog):
 class PdfSizeDialog(Gtk.Dialog):
 
     def __init__(self, parent):
-        super().__init__(title="Change pdf size", transient_for=parent, modal=True)
+        super().__init__(title=_("Change pdf size"), transient_for=parent, modal=True)
         self.parent = parent
 
         adjustment_height = Gtk.Adjustment(value=self.parent.page_height, lower=100, upper=5000, step_increment=20, page_increment=10, page_size=0)
@@ -392,11 +389,11 @@ class PdfSizeDialog(Gtk.Dialog):
         self.spin_button_width.set_adjustment(adjustment_width)
         self.spin_button_width.set_numeric(True)
 
-        button = Gtk.Button(label='Change pdf size')
+        button = Gtk.Button(label=_('Change pdf size'))
         button.connect('clicked', self.actualize_pdf_size)
 
-        label_height = Gtk.Label(label='Height pdf')
-        label_width = Gtk.Label(label='Width pdf')
+        label_height = Gtk.Label(label=_('Height pdf'))
+        label_width = Gtk.Label(label=_('Width pdf'))
 
         box = Gtk.Box(spacing=6, orientation=Gtk.Orientation.VERTICAL)
         box.append(label_height)

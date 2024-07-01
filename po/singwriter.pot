@@ -1,116 +1,116 @@
-# Portuguese translations for PACKAGE package
-# Traduções em português brasileiro para o pacote PACKAGE.
-# Copyright (C) 2024 THE PACKAGE'S COPYRIGHT HOLDER
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Samuel Schlemper <samuelschlemper2006@gmail.com>, 2024.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0.0\n"
-"Report-Msgid-Bugs-To: samuelschlemper2006@gmail.com\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-29 21:50-0300\n"
-"PO-Revision-Date: 2024-06-29 21:55-0300\n"
-"Last-Translator: Samuel Schlemper <samuelschlemper2006@gmail.com>\n"
-"Language: pt_BR\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/window.py:295 src/window.py:308 src/window.ui:118
 msgid "Change grid size"
-msgstr "Mudar tamanho da grade"
+msgstr ""
 
 #: src/window.py:311
 msgid "Number of rows"
-msgstr "Número de linhas"
+msgstr ""
 
 #: src/window.py:312
 msgid "Number of columns"
-msgstr "Número de colunas"
+msgstr ""
 
 #: src/window.py:350 src/window.py:358 src/window.ui:122
 msgid "Change font size"
-msgstr "Mudar tamanho da fonte"
+msgstr ""
 
 #: src/window.py:361
 msgid "The font size in the final pdf (does not change the font of the grid)"
-msgstr "O tamanho da fonte no pdf final (não muda a fonte da grade)"
+msgstr ""
 
 #: src/window.py:379 src/window.py:392 src/window.ui:126
 msgid "Change pdf size"
-msgstr "Mudar tamanho do pdf"
+msgstr ""
 
 #: src/window.py:395
 msgid "Height pdf"
-msgstr "Altura do pdf"
+msgstr ""
 
 #: src/window.py:396
 msgid "Width pdf"
-msgstr "Largura do pdf"
+msgstr ""
 
 #: src/window.py:420
 msgid "Hand format"
-msgstr "Formato da mão"
+msgstr ""
 
 #: src/window.py:421
 msgid "Movement"
-msgstr "Movimento"
+msgstr ""
 
 #: src/window.py:422
 msgid "Signal Location"
-msgstr "Local do sinal"
+msgstr ""
 
 #: src/window.py:423
 msgid "Transformation"
-msgstr "Transformação"
+msgstr ""
 
 #: src/window.ui:15
 msgid "Arquive"
-msgstr "Arquivo"
+msgstr ""
 
 #: src/window.ui:23
 msgid "Menu"
-msgstr "Menu"
+msgstr ""
 
 #: src/window.ui:106
 msgid "Shortcuts"
-msgstr "Atalhos"
+msgstr ""
 
 #: src/window.ui:110
 msgid "About SingWriter"
-msgstr "Sobre SingWriter"
+msgstr ""
 
 #: src/window.ui:130
 msgid "Save as .pdf"
-msgstr "Salvar com .pdf"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Geral"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shorcuts"
-msgstr "Mostra atalhos"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Sair"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:26
 msgctxt "shortcut window"
 msgid "Break line"
-msgstr "Quebrar linha"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Space"
-msgstr "Espaço"
+msgstr ""
 
 #: src/gtk/help-overlay.ui:38
 msgctxt "shortcut window"
 msgid "Delete"
-msgstr "Deletar"
+msgstr ""
