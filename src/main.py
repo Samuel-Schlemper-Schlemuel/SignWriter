@@ -25,7 +25,7 @@ gi.require_version('Adw', '1')
 
 from gi.repository import Gtk, Gio, Adw
 from .window import SingwriterWindow
-from gettext import gettext as _
+from locale import gettext as _
 
 class SingwriterApplication(Adw.Application):
     """The main application singleton class."""
@@ -53,7 +53,7 @@ class SingwriterApplication(Adw.Application):
                                 application_name='SingWriter',
                                 application_icon='io.github.SamuelSchlemperSchlemuel.SingWriter',
                                 developer_name='Samuel Schlemper',
-                                version='1.0.17',
+                                version='1.0.0',
                                 developers=['Samuel Schlemper (𝣡𝪛𝧢)'],
                                 copyright='© 2024 Samuel Schlemper')
         about.present()
@@ -78,3 +78,4 @@ def main(version):
     """The application's entry point."""
     app = SingwriterApplication()
     return app.run(sys.argv)
+

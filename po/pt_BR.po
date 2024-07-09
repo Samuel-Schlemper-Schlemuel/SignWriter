@@ -12,10 +12,9 @@ msgstr ""
 "PO-Revision-Date: 2024-06-29 21:55-0300\n"
 "Last-Translator: Samuel Schlemper <samuelschlemper2006@gmail.com>\n"
 "Language: pt_BR\n"
-"MIME-Version: 1.0\n"
+"MIME-Version: 2.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/window.py:295 src/window.py:308 src/window.ui:118
 msgid "Change grid size"

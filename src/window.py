@@ -19,7 +19,7 @@
 
 from gi.repository import Adw, Gtk, Gio, Gdk, GLib, PangoCairo, Pango
 import io, cairo
-from gettext import gettext as _
+from locale import gettext as _
 
 @Gtk.Template(resource_path='/io/github/SamuelSchlemperSchlemuel/SingWriter/window.ui')
 class SingwriterWindow(Adw.ApplicationWindow):
@@ -45,10 +45,6 @@ class SingwriterWindow(Adw.ApplicationWindow):
                            row_quantity = self.grid_row_quantity,
                            column_quantity = self.grid_column_quantity,
                            boxes = True)
-
-        style_provider = Gtk.CssProvider()
-        resource_path_style = '/io/github/SamuelSchlemperSchlemuel/SingWriter/style.css'
-        style_provider.load_from_path(f'resource://{resource_path_style}')
 
         symbol_screen = SymbolScreen(self)
         self.symbol_screen_grid = symbol_screen.symbol_screen_grid
@@ -667,3 +663,4 @@ class SaveFile():
                 result_text += self.parent.text_list[i] + '|'
 
         return result_text
+
