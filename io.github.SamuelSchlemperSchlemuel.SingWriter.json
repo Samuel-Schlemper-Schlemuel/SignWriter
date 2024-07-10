@@ -30,7 +30,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "file:///home/schlemuel/Projetos"
+                    "url" : "https://github.com/Samuel-Schlemper-Schlemuel/SingWriter",
+                    "branch": "main"
                 }
             ]
         }
