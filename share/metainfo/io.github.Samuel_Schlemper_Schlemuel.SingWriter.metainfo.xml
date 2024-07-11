@@ -2,7 +2,7 @@
 <!-- Copyright 2024 Samuel Schlemper -->
 <component type="desktop-application">
 
-<id>io.github.SamuelSchlemperSchlemuel.SingWriter</id>
+<id>io.github.Samuel_Schlemper_Schlemuel.SingWriter</id>
 <metadata_license>CC0-1.0</metadata_license>
 <project_license>GPL-3.0-or-later</project_license>
 
@@ -10,7 +10,7 @@
 <summary>Write in SignWriting</summary>
 <summary xml:lang="pt_BR">Escreva em SignWriting</summary>
 
-<developer id="io.github.SamuelSchlemperSchlemuel">
+<developer id="io.github.Samuel_Schlemper_Schlemuel">
   <name translate="no">Samuel Schlemper</name>
 </developer>
 
@@ -23,8 +23,10 @@
 
 <launchable type="desktop-id">org.flatpak.gnome.desktop</launchable>
 
-<icon type="stock">io.github.SamuelSchlemperSchlemuel.SingWriter.svg</icon>
-<icon type="remote">https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/f3bb637495e2d2ed384992dd5b1c187df62cfeed/data/icons/hicolor/scalable/apps/io.github.SamuelSchlemperSchlemuel.SingWriter.svg</icon>
+<icon type="stock">io.github.Samuel_Schlemper_Schlemuel.SingWriter.svg</icon>
+<icon type="remote">https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel
+/SingWriter/f3bb637495e2d2ed384992dd5b1c187df62cfeed/data/icons/hicolor/scalable/apps
+/io.github.SamuelSchlemperSchlemuel.SingWriter.svg</icon>
 
 <branding>
   <color type="primary" scheme_preference="light">#ff00ff</color>

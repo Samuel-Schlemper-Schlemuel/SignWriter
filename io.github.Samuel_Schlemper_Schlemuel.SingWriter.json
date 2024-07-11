@@ -1,5 +1,5 @@
 {
-    "id" : "io.github.SamuelSchlemperSchlemuel.SingWriter",
+    "id" : "io.github.Samuel_Schlemper_Schlemuel.SingWriter",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "46",
     "sdk" : "org.gnome.Sdk",
@@ -31,7 +31,7 @@
                 {
                     "type" : "git",
                     "url" : "https://github.com/Samuel-Schlemper-Schlemuel/SingWriter",
-                    "branch": "main"
+                    "commit": "741b366a848a1eab19bb2420e20c441c7a96bb4f"
                 }
             ]
         }

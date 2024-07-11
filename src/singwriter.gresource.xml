@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/io/github/SamuelSchlemperSchlemuel/SingWriter">
+  <gresource prefix="/io/github/Samuel_Schlemper_Schlemuel/SingWriter">
     <file preprocess="xml-stripblanks">window.ui</file>
     <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
     <file>style.css</file>

@@ -21,7 +21,7 @@ from gi.repository import Adw, Gtk, Gio, Gdk, GLib, PangoCairo, Pango
 import io, cairo
 from locale import gettext as _
 
-@Gtk.Template(resource_path='/io/github/SamuelSchlemperSchlemuel/SingWriter/window.ui')
+@Gtk.Template(resource_path='/io/github/Samuel_Schlemper_Schlemuel/SingWriter/window.ui')
 class SingwriterWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'SingwriterWindow'
 

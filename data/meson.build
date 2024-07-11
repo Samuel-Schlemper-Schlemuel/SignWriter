@@ -1,6 +1,6 @@
 desktop_file = i18n.merge_file(
-        input: 'io.github.SamuelSchlemperSchlemuel.SingWriter.desktop.in',
-       output: 'io.github.SamuelSchlemperSchlemuel.SingWriter.desktop',
+        input: 'io.github.Samuel_Schlemper_Schlemuel.SingWriter.desktop.in',
+       output: 'io.github.Samuel_Schlemper_Schlemuel.SingWriter.desktop',
          type: 'desktop',
        po_dir: '../po',
       install: true,
@@ -13,8 +13,8 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-        input: 'io.github.SamuelSchlemperSchlemuel.SingWriter.metainfo.xml.in',
-       output: 'io.github.SamuelSchlemperSchlemuel.SingWriter.metainfo.xml',
+        input: 'io.github.Samuel_Schlemper_Schlemuel.SingWriter.metainfo.xml.in',
+       output: 'io.github.Samuel_Schlemper_Schlemuel.SingWriter.metainfo.xml',
        po_dir: '../po',
       install: true,
   install_dir: get_option('datadir') / 'metainfo'
@@ -24,7 +24,7 @@ appstreamcli = find_program('appstreamcli', required: false, disabler: true)
 test('Validate appstream file', appstreamcli,
      args: ['validate', '--no-net', '--explain', appstream_file])
 
-install_data('io.github.SamuelSchlemperSchlemuel.SingWriter.gschema.xml',
+install_data('io.github.Samuel_Schlemper_Schlemuel.SingWriter.gschema.xml',
   install_dir: get_option('datadir') / 'glib-2.0' / 'schemas'
 )
 

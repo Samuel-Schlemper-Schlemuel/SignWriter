@@ -31,7 +31,7 @@ class SingwriterApplication(Adw.Application):
     """The main application singleton class."""
 
     def __init__(self):
-        super().__init__(application_id='io.github.SamuelSchlemperSchlemuel.SingWriter',
+        super().__init__(application_id='io.github.Samuel_Schlemper_Schlemuel.SingWriter',
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
@@ -51,7 +51,7 @@ class SingwriterApplication(Adw.Application):
         """Callback for the app.about action."""
         about = Adw.AboutWindow(transient_for=self.props.active_window,
                                 application_name='SingWriter',
-                                application_icon='io.github.SamuelSchlemperSchlemuel.SingWriter',
+                                application_icon='io.github.Samuel_Schlemper_Schlemuel.SingWriter',
                                 developer_name='Samuel Schlemper',
                                 version='0.0.0',
                                 developers=['Samuel Schlemper (𝣡𝪛𝧢)'],

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=singwriter
 Exec=singwriter
-Icon=io.github.SamuelSchlemperSchlemuel.SingWriter
+Icon=io.github.Samuel_Schlemper_Schlemuel.SingWriter
 Terminal=false
 Type=Application
 Categories=GTK;

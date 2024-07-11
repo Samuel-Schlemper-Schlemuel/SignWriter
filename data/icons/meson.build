@@ -1,4 +1,4 @@
-application_id = 'io.github.SamuelSchlemperSchlemuel.SingWriter'
+application_id = 'io.github.Samuel_Schlemper_Schlemuel.SingWriter'
 
 scalable_dir = 'hicolor' / 'scalable' / 'apps'
 install_data(
