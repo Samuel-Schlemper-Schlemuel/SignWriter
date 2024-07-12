@@ -3,7 +3,7 @@
 <component type="desktop-application">
 
 <id>io.github.Samuel_Schlemper_Schlemuel.SingWriter</id>
-<metadata_license>CC0-1.0</metadata_license>
+<metadata_license>MIT</metadata_license>
 <project_license>GPL-3.0-or-later</project_license>
 
 <name translate="no">SingWriter</name>
@@ -31,20 +31,7 @@
 <url type="homepage">https://github.com/Samuel-Schlemper-Schlemuel/SingWriter?tab=readme-ov-file#readme</url>
 <url type="vcs-browser">https://github.com/Samuel-Schlemper-Schlemuel/SingWriter</url>
 
-<screenshots>
-  <screenshot type="default">
-    <image>https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/72ba8f2304a29dc558957899161fd83e2f219464/data/prints/EnglishPrincipal.png</image>
-    <image xml:lang="pt_BR">https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/72ba8f2304a29dc558957899161fd83e2f219464/data/prints/PortuguesPrincipal.png</image>
-    <caption>The home page</caption>
-    <caption xml:lang="pt_BR">Página inicial</caption>
-  </screenshot>
-  <screenshot>
-    <image>https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/72ba8f2304a29dc558957899161fd83e2f219464/data/prints/EnglishHandFormat.png</image>
-    <image xml:lang="pt_BR">https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/72ba8f2304a29dc558957899161fd83e2f219464/data/prints/PortuguesFormatoDaMao.png</image>
-    <caption>The home page with the hand format screen</caption>
-    <caption xml:lang="pt_BR">A página inicial com a tela de formato de mão</caption>
-  </screenshot>
-</screenshots>
+<launchable type="desktop-id">io.github.Samuel_Schlemper_Schlemuel.SingWriter.desktop</launchable>
 
 <releases>
   <release version="0.0.0" date="2024-10-07">
