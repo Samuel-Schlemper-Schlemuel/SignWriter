@@ -26,6 +26,8 @@
   <color type="primary" scheme_preference="dark">#993d3d</color>
 </branding>
 
+<launchable type="desktop-id">io.github.Samuel_Schlemper_Schlemuel.SingWriter.desktop</launchable>
+
 <content_rating type="oars-1.1" />
 
 <url type="homepage">https://github.com/Samuel-Schlemper-Schlemuel/SingWriter?tab=readme-ov-file#readme</url>
