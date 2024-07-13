@@ -31,7 +31,7 @@
                 {
                     "type" : "git",
                     "url" : "https://github.com/Samuel-Schlemper-Schlemuel/SingWriter.git",
-                    "commit": "48d4554d37c1e0a45d5a8ac45aa76cdbcb789a66"
+                    "commit": "7870d01dd200770220a07c515702d2f30de1f03e"
                 }
             ]
         }

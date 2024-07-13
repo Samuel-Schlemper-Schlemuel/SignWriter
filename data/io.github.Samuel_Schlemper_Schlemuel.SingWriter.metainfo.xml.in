@@ -35,14 +35,14 @@
 
 <screenshots>
   <screenshot type="default">
-	  <image>https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/id/data/screenshots/EnglishPrincipal.png</image>
-	  <image xml:lang="pt_BR">https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/id/data/screenshots/PortuguesPrincipal.png</image>
+	  <image>https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/7870d01dd200770220a07c515702d2f30de1f03e/data/screenshots/EnglishPrincipal.png</image>
+	  <image xml:lang="pt_BR">https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/7870d01dd200770220a07c515702d2f30de1f03e/data/screenshots/PortuguesPrincipal.png</image>
 	  <caption>The home page</caption>
     <caption xml:lang="pt_BR">Página inicial</caption>
   </screenshot>
   <screenshot>
-    <image>https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/id/data/screenshots/EnglishHandFormat.png</image>
-    <image xml:lang="pt_BR">https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/id/data/screenshots/PortuguesFormatoDaMao.png</image>
+    <image>https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/7870d01dd200770220a07c515702d2f30de1f03e/data/screenshots/EnglishHandFormat.png</image>
+    <image xml:lang="pt_BR">https://raw.githubusercontent.com/Samuel-Schlemper-Schlemuel/SingWriter/7870d01dd200770220a07c515702d2f30de1f03e/data/screenshots/PortuguesFormatoDaMao.png</image>
     <caption>The home page with the hand format screen</caption>
     <caption xml:lang="pt_BR">A página inicial com a tela de formato de mão</caption>
   </screenshot>
