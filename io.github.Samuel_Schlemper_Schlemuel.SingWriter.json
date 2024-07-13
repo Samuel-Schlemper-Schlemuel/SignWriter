@@ -30,8 +30,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://github.com/Samuel-Schlemper-Schlemuel/SingWriter",
-                    "commit": "741b366a848a1eab19bb2420e20c441c7a96bb4f"
+                    "url" : "https://github.com/Samuel-Schlemper-Schlemuel/SingWriter.git",
+                    "commit": "48d4554d37c1e0a45d5a8ac45aa76cdbcb789a66"
                 }
             ]
         }

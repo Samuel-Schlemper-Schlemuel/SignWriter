@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=SingWriter
 Exec=singwriter
+Comment=Write in SignWriting
 Icon=io.github.Samuel_Schlemper_Schlemuel.SingWriter
 Terminal=false
 Type=Application
-Categories=Office;Writer;SingWriting;
+Categories=GNOME;GTK;
+Keywords=Writer;SignWriting;
 StartupNotify=true
