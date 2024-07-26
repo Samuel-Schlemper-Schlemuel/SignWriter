@@ -9,6 +9,10 @@ sign languages. This project is being done via GNOME Builder and the focus is on
 Português: O objetivo desse projeto é criar arquivos simples em pdf onde terá texto escrito em SingWrite, um "alfabeto" 
 para as línguas de sinais. Este projeto está sendo feito via GNOME Builder e o foco é no ambiente GNOME.
 
+## Download
+
+<a href='https://flathub.org/apps/io.github.Samuel_Schlemper_Schlemuel.SingWriter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
+
 ## If you want something to be added
 
 English: You can send an email to samuelschlemper2006@gmail.com, and the possibility of doing so will be
