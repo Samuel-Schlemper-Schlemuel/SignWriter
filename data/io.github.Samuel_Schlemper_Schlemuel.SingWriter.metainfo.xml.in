@@ -49,7 +49,16 @@
 </screenshots>
 
 <releases>
-  <release version="0.0.0" date="2024-10-07">
+  <release version="0.1.0" date="2024-07-30">
+    <url type="details">https://github.com/Samuel-Schlemper-Schlemuel/SingWriter</url>
+    <description>
+      <ul>
+        <li>New logo</li>
+        <li>Reduced spacebar advance size for greater precision.</li>
+      </ul>
+    </description>
+  </release>
+  <release version="0.0.0" date="2024-07-10">
     <url type="details">https://github.com/Samuel-Schlemper-Schlemuel/SingWriter</url>
     <description>
       <p>Initial stable version</p>
