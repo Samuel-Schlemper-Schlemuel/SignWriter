@@ -1,5 +1,0 @@
-[Runtime]
-name=io.github.Samuel_Schlemper_Schlemuel.SignWriter.Locale
-
-[ExtensionOf]
-ref=app/io.github.Samuel_Schlemper_Schlemuel.SignWriter/x86_64/master
