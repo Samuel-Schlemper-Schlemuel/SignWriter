@@ -77,8 +77,8 @@ msgid "Shortcuts"
 msgstr "Atalhos"
 
 #: src/window.ui:110
-msgid "About SingWriter"
-msgstr "Sobre SingWriter"
+msgid "About SignWriter"
+msgstr "Sobre SignWriter"
 
 #: src/window.ui:130
 msgid "Save as .pdf"

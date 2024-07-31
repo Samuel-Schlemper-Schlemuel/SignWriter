@@ -2,10 +2,10 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="Adw" version="1.0"/>
-  <template class="SingwriterWindow" parent="AdwApplicationWindow">
-    <property name="default-height">1500</property>
-    <property name="default-width">2000</property>
-    <property name="title">SingWriter</property>
+  <template class="SignwriterWindow" parent="AdwApplicationWindow">
+    <property name="default-height">550</property>
+    <property name="default-width">800</property>
+    <property name="title">SignWriter</property>
     <property name="content">
       <object class="AdwToolbarView">
         <child type="top">
@@ -107,7 +107,7 @@
         <attribute name="action">win.show-help-overlay</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">About SingWriter</attribute>
+        <attribute name="label" translatable="yes">About SignWriter</attribute>
         <attribute name="action">app.about</attribute>
       </item>
     </section>

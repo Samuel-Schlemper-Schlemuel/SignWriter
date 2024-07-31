@@ -1,9 +1,9 @@
 pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
-moduledir = pkgdatadir / 'singwriter'
+moduledir = pkgdatadir / 'signwriter'
 gnome = import('gnome')
 
-gnome.compile_resources('singwriter',
-  'singwriter.gresource.xml',
+gnome.compile_resources('signwriter',
+  'signwriter.gresource.xml',
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir,
@@ -18,18 +18,18 @@ conf.set('localedir', get_option('prefix') / get_option('localedir'))
 conf.set('pkgdatadir', pkgdatadir)
 
 configure_file(
-  input: 'singwriter.in',
-  output: 'singwriter',
+  input: 'signwriter.in',
+  output: 'signwriter',
   configuration: conf,
   install: true,
   install_dir: get_option('bindir'),
   install_mode: 'r-xr-xr-x'
 )
 
-singwriter_sources = [
+signwriter_sources = [
   '__init__.py',
   'main.py',
   'window.py',
 ]
 
-install_data(singwriter_sources, install_dir: moduledir)
+install_data(signwriter_sources, install_dir: moduledir)

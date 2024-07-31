@@ -1,17 +1,17 @@
-# SingWriter
+# SignWriter
 
 The font used is Noto Sans SignWriting. Some systems have it as standard, but if this is not the case for 
 you and it causes a problem, you can obtain it at [fonts.google.com/noto/specimen/Noto+Sans+SignWriting](https://fonts.google.com/noto/specimen/Noto+Sans+SignWriting)
 
-English: The goal of this project is to create simple PDF files with text written in SingWrite, an 'alphabet' for 
+English: The goal of this project is to create simple PDF files with text written in SignWrite, an 'alphabet' for 
 sign languages. This project is being done via GNOME Builder and the focus is on the GNOME environment.
 
-Português: O objetivo desse projeto é criar arquivos simples em pdf onde terá texto escrito em SingWrite, um "alfabeto" 
+Português: O objetivo desse projeto é criar arquivos simples em pdf onde terá texto escrito em SignWrite, um "alfabeto" 
 para as línguas de sinais. Este projeto está sendo feito via GNOME Builder e o foco é no ambiente GNOME.
 
 ## Download
 
-<a href='https://flathub.org/apps/io.github.Samuel_Schlemper_Schlemuel.SingWriter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
+<a href='https://flathub.org/apps/io.github.Samuel_Schlemper_Schlemuel.SignWriter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
 ## If you want something to be added
 

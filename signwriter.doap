@@ -1,0 +1,20 @@
+<Project>
+
+  <name xml:lang="en">SignWriter</name>
+  <shortdesc xml:lang="en">Write in SignWriting</shortdesc>
+  <homepage rdf:resource="https://github.com/Samuel-Schlemper-Schlemuel/SignWriter" />
+  <programming-language>Python</programming-language>
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Samuel Schlemper</foaf:name>
+      <foaf:mbox rdf:resource="samuelschlemper2006@gmail.com" />
+      <foaf:account>
+        <foaf:OnlineAccount>
+            <foaf:accountServiceHomepage rdf:resource="https://github.com/"/>
+            <foaf:accountName>Samuel-Schlemper-Schlemuel</foaf:accountName>
+        </foaf:OnlineAccount>
+      </foaf:account>
+    </foaf:Person>
+  </maintainer>
+</Project>
