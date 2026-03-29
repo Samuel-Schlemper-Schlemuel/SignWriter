@@ -56,6 +56,15 @@
 </provides>
 
 <releases>
+   <release version="0.2.0" date="2026-03-29">
+    <url type="details">https://github.com/Samuel-Schlemper-Schlemuel/SignWriter</url>
+    <description>
+      <ul>
+        <li>Added Italian translation</li>
+        <li>Gnome runtime version upgraded to 50</li>
+      </ul>
+    </description>
+  </release>
   <release version="0.1.1" date="2024-07-31">
     <url type="details">https://github.com/Samuel-Schlemper-Schlemuel/SignWriter</url>
     <description>

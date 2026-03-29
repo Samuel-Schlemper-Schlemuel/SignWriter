@@ -25,7 +25,7 @@ gi.require_version('Adw', '1')
 
 from gi.repository import Gtk, Gio, Adw
 from .window import SignwriterWindow
-from locale import gettext as _
+from locale import gettext
 
 class SignwriterApplication(Adw.Application):
     """The main application singleton class."""
@@ -49,13 +49,17 @@ class SignwriterApplication(Adw.Application):
 
     def on_about_action(self, widget, _):
         """Callback for the app.about action."""
-        about = Adw.AboutWindow(transient_for=self.props.active_window,
-                                application_name='SignWriter',
-                                application_icon='io.github.Samuel_Schlemper_Schlemuel.SignWriter',
-                                developer_name='Samuel Schlemper',
-                                version='0.1.1',
-                                developers=['Samuel Schlemper (𝣡𝪛𝧢)'],
-                                copyright='© 2024 Samuel Schlemper')
+        about = Adw.AboutDialog(
+			application_name='SignWriter',
+			application_icon='io.github.Samuel_Schlemper_Schlemuel.SignWriter',
+			developer_name='Samuel Schlemper',
+			version='0.2.0',
+			developers=['Samuel Schlemper (𝡬𝪛𝧢)'],
+			translator_credits=gettext('translator-credits'),
+			copyright='© 2026 Samuel Schlemper',
+			license_type=Gtk.License.GPL_3_0,
+			)
+
         about.present()
 
     def create_action(self, name, callback, shortcuts=None):
@@ -78,4 +82,5 @@ def main(version):
     """The application's entry point."""
     app = SignwriterApplication()
     return app.run(sys.argv)
+
 
