@@ -116,4 +116,4 @@ msgstr "Transformação"
 
 #: src/main.py:58
 msgid "translator-credits"
-msgstr "Samuel Schlemper"
+msgstr "Samuel Schlemper (𝣭𝪞𝧢)"

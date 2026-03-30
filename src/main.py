@@ -54,7 +54,7 @@ class SignwriterApplication(Adw.Application):
 			application_icon='io.github.Samuel_Schlemper_Schlemuel.SignWriter',
 			developer_name='Samuel Schlemper',
 			version='0.2.0',
-			developers=['Samuel Schlemper (𝡬𝪛𝧢)'],
+			developers=['Samuel Schlemper (𝣭𝪞𝧢)'],
 			translator_credits=gettext('translator-credits'),
 			copyright='© 2026 Samuel Schlemper',
 			license_type=Gtk.License.GPL_3_0,
